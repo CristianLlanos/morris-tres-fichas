@@ -6,6 +6,15 @@
 ; Es necesario esto
 ;(in-package :ltk)
 
+
+;---------------------------------------------------
+; Estos son datos de prueba que debes ser eliminados
+(setq q '(0 0))
+(setq w '(1 0))
+(setq e '(2 0))
+; Hasta aquí son datos de prueba
+;---------------------------------------------------
+
 ;---------------------------------------------------
 ; Definición del juego
 

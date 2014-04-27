@@ -21,14 +21,6 @@
 ;---------------------------------------------------
 
 ;---------------------------------------------------
-; Estos son datos de prueba que debes ser eliminados
-(setq q '(0 0))
-(setq w '(1 0))
-(setq e '(2 0))
-; Hasta aquí son datos de prueba
-;---------------------------------------------------
-
-;---------------------------------------------------
 ; (esEstadoMeta A B C) retorna una lista con los
 ; mismos parámetros: (A B C) en caso de que estén
 ; incluidos en el conjunto de estados meta de la
