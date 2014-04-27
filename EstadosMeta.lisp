@@ -21,10 +21,11 @@
 ;---------------------------------------------------
 
 ;---------------------------------------------------
-; (esEstadoMeta A B C) retorna una lista con los
-; mismos parámetros: (A B C) en caso de que estén
-; incluidos en el conjunto de estados meta de la
-; lista EstadosMeta, en caso contrario retorna NIL
+; (esEstadoMeta A B C) Toma como parámentros a tres
+; listas con la forma (x y) y retorna una lista
+; con los mismos parámetros: (A B C) en caso de que
+; estén incluidos en el conjunto de estados meta de
+; la lista EstadosMeta, en caso contrario retorna NIL
 
 (defun esEstadoMeta(a b c)
 	(setq Estado (list a b c))

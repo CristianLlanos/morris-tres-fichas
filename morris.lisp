@@ -9,10 +9,14 @@
 
 ;---------------------------------------------------
 ; Estos son datos de prueba que debes ser eliminados
+; Considerar que estas variables son listas (x y)
+; que hace referencia a un par ordenado (x,y)
+; (fila, columna)
+
 (setq q '(0 0))
 (setq w '(1 0))
 (setq e '(2 0))
-; Hasta aquí son datos de prueba
+
 ;---------------------------------------------------
 
 ;---------------------------------------------------
