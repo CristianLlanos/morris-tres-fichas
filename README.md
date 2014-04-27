@@ -12,7 +12,7 @@ Autores:
 Notas
 =====
  - Tab Size: 2
- - TicTacToe (camel-case)
+ - TicTacToe (camel-case), booleano empieza con minúscula
  - Indentation: Revisar "button.lisp"
  - Importante poner comentarios
  - Al agregar variables globales: comunicar al resto del grupo
