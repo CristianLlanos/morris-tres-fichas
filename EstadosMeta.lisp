@@ -1,4 +1,10 @@
-(setq EstadosMeta
+;---------------------------------------------------
+; Aquí se definen todos los estados meta
+; y se guardan en la variable global *EstadosMeta*
+; para que los datos puedan ser utilizados
+; posteriormente.
+
+(setq *EstadosMeta*
 	'( ; Conjunto de estados
 		((0 0) (1 0) (2 0)) ; Primera columna
 		((0 1) (1 1) (2 1)) ; Segunda columna
@@ -12,40 +18,25 @@
 	)
 )
 
-(setq d '(0 0))
-(setq e '(1 0))
-(setq f '(2 0))
+;---------------------------------------------------
+
+;---------------------------------------------------
+; Estos son datos de prueba que debes ser eliminados
+(setq q '(0 0))
+(setq w '(1 0))
+(setq e '(2 0))
+; Hasta aquí son datos de prueba
+;---------------------------------------------------
+
+;---------------------------------------------------
+; (esEstadoMeta A B C) retorna una lista con los
+; mismos parámetros: (A B C) en caso de que estén
+; incluidos en el conjunto de estados meta de la
+; lista EstadosMeta, en caso contrario retorna NIL
 
 (defun esEstadoMeta(a b c)
 	(setq Estado (list a b c))
-	(find Estado EstadosMeta :test #'equal)
+	(find Estado *EstadosMeta* :test #'equal)
 )
 
-
-;ESTAS FUNCIONES NO SON ÚTILES, PERO QUEDAN PARA CONSULTAR LA ESTRUCTURA
-; |
-; V
-
-#| (dolist (x EstadosMeta)
-		(print (list "Estado Meta: " x))
-		)
-	) |#
-#| (defun esMetaVertical1(PosActual PosMas1 PosMas2) ; PosActual=(1,1) PosMas1=(2,1) PosMas2=(3,1)
-	(if
-		((and (= (first PosActual) 0) (= (rest PosActual) (rest PosMas1) (rest PosMas2)))
-		(progn
-			(if
-				(= (+ (first PosActual) 1) (first PosMas1))
-				(progn
-					(if
-						(= (+ (first PosActual) 2) (first PosMas2))
-						(print "Verdadero")
-						(print "Falso")
-					)
-				)
-				(print "Falso")
-			)
-		)
-		(print "Falso")
-	)
-) |#
+;---------------------------------------------------
