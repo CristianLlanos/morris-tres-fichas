@@ -1,0 +1,7 @@
+(defun InicializarJuego()
+	(setq *Tablero* '(n n n n n n n n n))
+	(setq *hayGanadores* nil)
+	(setq *Niveles* 0)
+	(setq *FichaH* 'x)
+	(setq *FichaO* 'o)
+)
