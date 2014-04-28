@@ -5,7 +5,7 @@
 ; posteriormente.
 
 (setq *EstadosMeta*
-	'( ; Conjunto de estados
+	'(
 		((0 0) (1 0) (2 0)) ; Primera columna
 		((0 1) (1 1) (2 1)) ; Segunda columna
 		((0 2) (1 2) (2 2)) ; Tercera columna
@@ -14,7 +14,6 @@
 		((2 0) (2 1) (2 2)) ; Tercera fila
 		((0 0) (1 1) (2 2)) ; Diagonal \
 		((2 0) (1 1) (0 2)) ; Diagonal /
-		;Sí, debe ser global
 	)
 )
 
