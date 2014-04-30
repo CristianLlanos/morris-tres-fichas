@@ -22,9 +22,9 @@
 					; Verfica que la posición esté libre
 			(progn
 				(setf (nth
-									(+ (* 3 (first Posicion)) (cadr Posicion)) *Tablero*)
-									Ficha)
-										; Poner la Ficha en la Posición Final
+					(+ (* 3 (first Posicion)) (cadr Posicion)) *Tablero*)
+					Ficha)
+						; Poner la Ficha en la Posición Final
 				(setq *NumeroFichas* (+ *NumeroFichas* 1))
 					; Actualiza el número de fichas que hay en el tablero.
 				(setq *Turno* (* *Turno* -1)) )
@@ -62,13 +62,13 @@
 					; Verifica que la ficha que quiere mover le corresponde
 		(progn
 			(setf (nth
-								(+ (* 3 (first PosicionSiguiente)) (cadr PosicionSiguiente)) *Tablero*)
-								Ficha)
-									; Poner la Ficha en la Posición Final
+				(+ (* 3 (first PosicionSiguiente)) (cadr PosicionSiguiente)) *Tablero*)
+				Ficha)
+					; Poner la Ficha en la Posición Final
 			(setf (nth
-								(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
-								nil)
-									; Dejar vacía la Posición Inicial
+				(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
+				nil)
+					; Dejar vacía la Posición Inicial
 			(setq *Turno* (* *Turno* -1)) )
 				; Cambiar de turno
 		nil ) ) ; Retorna NIL en caso de que no sea posible el desplazamiento
@@ -103,13 +103,13 @@
 					; Verifica que la ficha que quiere mover le corresponde
 		(progn
 			(setf (nth
-								(+ (* 3 (first PosicionSiguiente)) (cadr PosicionSiguiente)) *Tablero*)
-								Ficha)
-									; Poner la Ficha en la Posición Final
+				(+ (* 3 (first PosicionSiguiente)) (cadr PosicionSiguiente)) *Tablero*)
+				Ficha)
+					; Poner la Ficha en la Posición Final
 			(setf (nth
-								(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
-								nil)
-									; Dejar vacía la Posición Inicial
+				(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
+				nil)
+					; Dejar vacía la Posición Inicial
 			(setq *Turno* (* *Turno* -1)) )
 				; Cambiar de turno
 		nil ) ) ; Retorna NIL en caso de que no sea posible el desplazamiento
@@ -134,8 +134,6 @@
 		((= *Turno* -1) (setq Ficha *FichaO*))
 		((= *Turno* 1) (setq Ficha *FichaH*))
 	)
-	(princ PosicionSiguiente)
-	(princ Ficha)
 	(if (and
 				(= *Turno* Jugador)
 					; Verifica que le corresponda el turno (que le toque jugar)
@@ -147,13 +145,13 @@
 					; Verifica que la ficha que quiere mover le corresponde
 		(progn
 			(setf (nth
-								(+ (* 3 (first PosicionSiguiente)) (cadr PosicionSiguiente)) *Tablero*)
-								Ficha)
-									; Poner la Ficha en la Posición Final
+				(+ (* 3 (first PosicionSiguiente)) (cadr PosicionSiguiente)) *Tablero*)
+				Ficha)
+					; Poner la Ficha en la Posición Final
 			(setf (nth
-								(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
-								nil)
-									; Dejar vacía la Posición Inicial
+				(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
+				nil)
+					; Dejar vacía la Posición Inicial
 			(setq *Turno* (* *Turno* -1)) )
 				; Cambiar de turno
 		nil ) ) ; Retorna NIL en caso de que no sea posible el desplazamiento
@@ -189,13 +187,13 @@
 					; Verifica que la ficha que quiere mover le corresponde
 		(progn
 			(setf (nth
-								(+ (* 3 (first PosicionFinal)) (cadr PosicionFinal)) *Tablero*)
-								Ficha)
-									; Poner la Ficha en la Posición Final
+				(+ (* 3 (first PosicionFinal)) (cadr PosicionFinal)) *Tablero*)
+				Ficha)
+					; Poner la Ficha en la Posición Final
 			(setf (nth
-								(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
-								nil)
-									; Dejar vacía la Posición Inicial
+				(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
+				nil)
+					; Dejar vacía la Posición Inicial
 			(setq *Turno* (* *Turno* -1)) )
 				; Cambiar de turno
 		nil ) ) ; Retorna NIL en caso de que no sea posible el desplazamiento
@@ -230,13 +228,13 @@
 					; Verfica que la posición a la que se quiere mover esté libre
 			(progn
 				(setf (nth
-								(+ (* 3 (first PosicionFinal)) (cadr PosicionFinal)) *Tablero*)
-								Ficha)
-									; Poner la Ficha en la Posición Final
+					(+ (* 3 (first PosicionFinal)) (cadr PosicionFinal)) *Tablero*)
+					Ficha)
+						; Poner la Ficha en la Posición Final
 				(setf (nth
-								(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
-								nil)
-									; Dejar vacía la Posición Inicial
+					(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
+					nil)
+						; Dejar vacía la Posición Inicial
 				(setq *Turno* (* *Turno* -1)) )
 					; Cambiar de turno
 			NIL) )
@@ -271,18 +269,18 @@
 					; Verfica que la posición a la que se quiere mover esté libre
 			(progn
 				(setf (nth
-								(+ (* 3 (first PosicionFinal)) (cadr PosicionFinal)) *Tablero*)
-								Ficha)
-									; Poner la Ficha en la Posición Final
+					(+ (* 3 (first PosicionFinal)) (cadr PosicionFinal)) *Tablero*)
+					Ficha)
+						; Poner la Ficha en la Posición Final
 				(setf (nth
-								(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
-								nil)
-									; Dejar vacía la Posición Inicial
+					(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
+					nil)
+						; Dejar vacía la Posición Inicial
 				(setq *Turno* (* *Turno* -1)) )
 					; Cambiar de turno
 			NIL) )
 
-;---------------------
+;---------------------------------------------------
 
 ;---------------------------------------------------
 ; (desplazar-diagonal-b-izquierda A J) - \ hacia la izquierda
@@ -314,20 +312,20 @@
 					; Verfica que la posición a la que se quiere mover esté libre
 			(progn
 				(setf (nth
-								(+ (* 3 (first PosicionFinal)) (cadr PosicionFinal)) *Tablero*)
-								Ficha)
-									; Poner la Ficha en la Posición Final
+					(+ (* 3 (first PosicionFinal)) (cadr PosicionFinal)) *Tablero*)
+					Ficha)
+						; Poner la Ficha en la Posición Final
 				(setf (nth
-								(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
-								nil)
-									; Dejar vacía la Posición Inicial
+					(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
+					nil)
+						; Dejar vacía la Posición Inicial
 				(setq *Turno* (* *Turno* -1)) )
 					; Cambiar de turno
 			NIL) )
 
-	;---------------------------------------------------
+;---------------------------------------------------
 
-	;---------------------------------------------------
+;---------------------------------------------------
 ; (desplazar-diagonal-b-derecha A J) - \ hacia la derecha
 ;
 ; Toma como parámetros de entrada a las coordenas A (de la ficha seleccionada)
@@ -357,15 +355,15 @@
 					; Verfica que la posición a la que se quiere mover esté libre
 			(progn
 				(setf (nth
-								(+ (* 3 (first PosicionFinal)) (cadr PosicionFinal)) *Tablero*)
-								Ficha)
-									; Poner la Ficha en la Posición Final
+					(+ (* 3 (first PosicionFinal)) (cadr PosicionFinal)) *Tablero*)
+					Ficha)
+						; Poner la Ficha en la Posición Final
 				(setf (nth
-								(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
-								nil)
-									; Dejar vacía la Posición Inicial
+					(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
+					nil)
+						; Dejar vacía la Posición Inicial
 				(setq *Turno* (* *Turno* -1)) )
 					; Cambiar de turno
 			NIL) )
 
-	;---------------------------------------------------
+;---------------------------------------------------
