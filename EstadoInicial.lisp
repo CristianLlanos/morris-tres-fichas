@@ -3,7 +3,7 @@
 ; de las variables globales listas para empezar un
 ; nuevo juego
 
-(defun InicializarJuego()
+(defun inicializar-juego()
 	(setq *Tablero* '(nil nil nil nil nil nil nil nil nil))
 	;(setq *Posicion* '(-1 -1))
 	(setq *Turno* 1)

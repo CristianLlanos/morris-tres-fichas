@@ -6,6 +6,19 @@
 ; Es necesario esto
 ;(in-package :ltk)
 
+(defun mostrar-tablero()
+  (let
+      ((tablero *tablero*))
+    (format t "~&| ~s ~s ~s | ~&| ~s ~s ~s | ~&| ~s ~s ~s |"
+	    (nth 0 tablero)
+	    (nth 1 tablero)
+	    (nth 2 tablero)
+	    (nth 3 tablero)
+	    (nth 4 tablero)
+	    (nth 5 tablero)
+	    (nth 6 tablero)
+	    (nth 7 tablero)
+	    (nth 8 tablero))))
 
 ;---------------------------------------------------
 ; Estos son datos de prueba que debes ser eliminados
@@ -59,3 +72,5 @@
 	;(InicializarHumano)
 	;(InicializarOrdenador)
 )
+
+;(setq *Tablero* '(x o nil o nil x nil x o))
