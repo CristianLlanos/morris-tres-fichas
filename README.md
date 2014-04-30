@@ -12,7 +12,7 @@ Autores:
 Notas
 -----
 
- - TicTacToe (snake-case)
+ - tic-tac-toe (snake-case)
  - Indentation: Revisar "button.lisp"
  - Importante poner comentarios
  - Al agregar variables globales: comunicar al resto del grupo
