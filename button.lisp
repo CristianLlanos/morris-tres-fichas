@@ -8,16 +8,7 @@
 							:master nil
 							:text "Holi"
 							:command (lambda ()
-									   (format t "Holi :P~&")
-							)
-					)
-				)
-			)
-	  		(pack b)
-	  )
-	)
-)
-
-
+									   (format t "Holi :P~&") ) )) )
+	  		(pack b) ) ) )
 
 (hello-1)

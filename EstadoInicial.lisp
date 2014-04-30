@@ -4,14 +4,15 @@
 ; nuevo juego
 
 (defun InicializarJuego()
-	(setq *Tablero* '(n n n n n n n n n))
-	(setq *Posicion* '(-1 -1))
-	(setq *Turno* 'h)
+	(setq *Tablero* '(nil nil nil nil nil nil nil nil nil))
+	;(setq *Posicion* '(-1 -1))
+	(setq *Turno* 1)
 
-	(setq *hayGanadores* nil)
+	;(setq *hayGanadores* nil)
 	;(setq *Niveles* 0)
 	(setq *FichaH* 'x)
 	(setq *FichaO* 'o)
+	(setq *NumeroFichas* 0)
 )
 
 ;---------------------------------------------------
