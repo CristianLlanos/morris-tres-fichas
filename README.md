@@ -10,9 +10,9 @@ Autores:
  - Fredy Huamani
 
 Notas
-=====
- - Tab Size: 2
- - TicTacToe (camel-case), booleano empieza con minúscula
+-----
+
+ - TicTacToe (snake-case)
  - Indentation: Revisar "button.lisp"
  - Importante poner comentarios
  - Al agregar variables globales: comunicar al resto del grupo
