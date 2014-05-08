@@ -14,6 +14,7 @@
 (defvar *FichaH*) ; Ficha del Humano: X
 (defvar *FichaO*) ; Ficha del Ordenador: O
 
-(defvar *NumeroFichas*) ; 6
+(defvar *NumeroFichas*) ; Contador de fichas
+(defvar *MaxNumFichas*) ; Constante 6 fichas
 
 ;---------------------------------------------------

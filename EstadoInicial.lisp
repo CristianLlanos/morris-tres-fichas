@@ -13,6 +13,7 @@
 	(setq *FichaH* 'x)
 	(setq *FichaO* 'o)
 	(setq *NumeroFichas* 0)
+	(setq *MaxNumFichas* 6)
 )
 
 ;---------------------------------------------------

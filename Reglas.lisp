@@ -14,8 +14,8 @@
 		((= *Turno* -1) (setq Ficha *FichaO*))
 		((= *Turno* 1) (setq Ficha *FichaH*)) )
 	(if (and
-				(< *NumeroFichas* 6)
-					; Verificamos que aún se puedan
+				(< *NumeroFichas* *MaxNumfichas*)
+					; Verificamos que esté en la primera fase del juego
 				(= *Turno* Jugador)
 					; Verifica que le corresponda el turno (que le toque jugar)
 				(equal (nth (+ (* 3 (first Posicion)) (cadr Posicion)) *Tablero*) nil))
@@ -27,10 +27,14 @@
 						; Poner la Ficha en la Posición Final
 				(setq *NumeroFichas* (+ *NumeroFichas* 1))
 					; Actualiza el número de fichas que hay en el tablero.
-				(setq *Turno* (* *Turno* -1)) )
+				(setq *Turno* (* *Turno* -1))
 					; Cambiar de turno
+				Posicion
+				; Retorna T si se hizo el cambio con éxito
+			)
 		nil ) ; Retorna NIL en caso de que no sea posible el desplazamiento
-	(mostrar-tablero) )
+	;(mostrar-tablero)
+	)
 
 ;---------------------------------------------------
 
@@ -52,6 +56,8 @@
 		((= *Turno* -1) (setq Ficha *FichaO*))
 		((= *Turno* 1) (setq Ficha *FichaH*)) )
 	(if (and
+				(= *NumeroFichas* *MaxNumfichas*)
+					; Verifica que el juego esté en la seguda fase del juego
 				(= *Turno* Jugador)
 					; Verifica que le corresponda el turno (que le toque jugar)
 				(> (first PosicionActual) 0)
@@ -69,8 +75,9 @@
 				(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
 				nil)
 					; Dejar vacía la Posición Inicial
-			(setq *Turno* (* *Turno* -1)) )
+			(setq *Turno* (* *Turno* -1))
 				; Cambiar de turno
+			PosicionSiguiente )
 		nil ) ) ; Retorna NIL en caso de que no sea posible el desplazamiento
 
 ;------------------------------------------------
@@ -93,6 +100,8 @@
 		((= *Turno* -1) (setq Ficha *FichaO*))
 		((= *Turno* 1) (setq Ficha *FichaH*)) )
 	(if (and
+				(= *NumeroFichas* *MaxNumfichas*)
+					; Verifica que el juego esté en la seguda fase del juego
 				(= *Turno* Jugador)
 					; Verifica que le corresponda el turno (que le toque jugar)
 				(< (cadr PosicionActual) 2)
@@ -110,8 +119,9 @@
 				(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
 				nil)
 					; Dejar vacía la Posición Inicial
-			(setq *Turno* (* *Turno* -1)) )
+			(setq *Turno* (* *Turno* -1))
 				; Cambiar de turno
+			PosicionSiguiente )
 		nil ) ) ; Retorna NIL en caso de que no sea posible el desplazamiento
 
 ;---------------------------------------------------
@@ -135,6 +145,8 @@
 		((= *Turno* 1) (setq Ficha *FichaH*))
 	)
 	(if (and
+				(= *NumeroFichas* *MaxNumfichas*)
+					; Verifica que el juego esté en la seguda fase del juego
 				(= *Turno* Jugador)
 					; Verifica que le corresponda el turno (que le toque jugar)
 				(< (first PosicionActual) 2)
@@ -152,8 +164,9 @@
 				(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
 				nil)
 					; Dejar vacía la Posición Inicial
-			(setq *Turno* (* *Turno* -1)) )
+			(setq *Turno* (* *Turno* -1))
 				; Cambiar de turno
+			PosicionSiguiente )
 		nil ) ) ; Retorna NIL en caso de que no sea posible el desplazamiento
 
 ;---------------------------------------------------
@@ -170,32 +183,35 @@
 ; cambiando el valor de la variable global *Turno*. De ser inválido, retorna el valor NIL
 
 (defun desplazar-arriba(PosicionActual Jugador)
-	(setq PosicionFinal (list (- (first PosicionActual) 1) (cadr PosicionActual)))
+	(setq PosicionSiguiente (list (- (first PosicionActual) 1) (cadr PosicionActual)))
 		; Calcula la posición siguiente
 	(cond
 		((= *Turno* -1) (setq Ficha *FichaO*))
 		((= *Turno* 1) (setq Ficha *FichaH*))
 	)
 	(if (and
+				(= *NumeroFichas* *MaxNumfichas*)
+					; Verifica que el juego esté en la seguda fase del juego
 				(= *Turno* Jugador)
 					; Verifica que le corresponda el turno (que le toque jugar)
 				(> (first PosicionActual) 0)
 					; x > 0
-				(equal (nth (+ (* 3 (first PosicionFinal)) (cadr PosicionFinal)) *Tablero*) nil)
+				(equal (nth (+ (* 3 (first PosicionSiguiente)) (cadr PosicionSiguiente)) *Tablero*) nil)
 					; Verfica que la posición a la que se quiere mover esté libre
 				(equal (nth (+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*) Ficha) )
 					; Verifica que la ficha que quiere mover le corresponde
 		(progn
 			(setf (nth
-				(+ (* 3 (first PosicionFinal)) (cadr PosicionFinal)) *Tablero*)
+				(+ (* 3 (first PosicionSiguiente)) (cadr PosicionSiguiente)) *Tablero*)
 				Ficha)
 					; Poner la Ficha en la Posición Final
 			(setf (nth
 				(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
 				nil)
 					; Dejar vacía la Posición Inicial
-			(setq *Turno* (* *Turno* -1)) )
+			(setq *Turno* (* *Turno* -1))
 				; Cambiar de turno
+			PosicionSiguiente )
 		nil ) ) ; Retorna NIL en caso de que no sea posible el desplazamiento
 
 ;---------------------------------------------------
@@ -213,30 +229,33 @@
 ; retorna el valor NIL
 
 (defun desplazar-diagonal-a-derecha(PosicionActual Jugador)
-	(setq PosicionFinal (list (- (first PosicionActual) 1) (+ (cadr PosicionActual) 1)))
+	(setq PosicionSiguiente (list (- (first PosicionActual) 1) (+ (cadr PosicionActual) 1)))
 		; Calcula la posición siguiente
 	(cond
 		((= *Turno* -1) (setq Ficha *FichaO*))
 		((= *Turno* 1) (setq Ficha *FichaH*))
 	)
 	(if (and
+				(= *NumeroFichas* *MaxNumfichas*)
+					; Verifica que el juego esté en la seguda fase del juego
 				(= *Turno* Jugador)
 					; Verifica que le corresponda el turno (que le toque jugar)
 				(find PosicionActual '((2 0) (1 1)) :test #'equal)
 					; Verifica que esté en la diagonal y que se pueda mover la ficha
-				(equal (nth (+ (* 3 (first PosicionFinal)) (cadr PosicionFinal)) *Tablero*) nil) )
+				(equal (nth (+ (* 3 (first PosicionSiguiente)) (cadr PosicionSiguiente)) *Tablero*) nil) )
 					; Verfica que la posición a la que se quiere mover esté libre
 			(progn
 				(setf (nth
-					(+ (* 3 (first PosicionFinal)) (cadr PosicionFinal)) *Tablero*)
+					(+ (* 3 (first PosicionSiguiente)) (cadr PosicionSiguiente)) *Tablero*)
 					Ficha)
 						; Poner la Ficha en la Posición Final
 				(setf (nth
 					(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
 					nil)
 						; Dejar vacía la Posición Inicial
-				(setq *Turno* (* *Turno* -1)) )
+				(setq *Turno* (* *Turno* -1))
 					; Cambiar de turno
+				PosicionSiguiente )
 			NIL) )
 
 ;---------------------------------------------------
@@ -254,30 +273,33 @@
 ; retorna el valor NIL
 
 (defun desplazar-diagonal-a-izquierda(PosicionActual Jugador)
-	(setq PosicionFinal (list (+ (first PosicionActual) 1) (- (cadr PosicionActual) 1)))
+	(setq PosicionSiguiente (list (+ (first PosicionActual) 1) (- (cadr PosicionActual) 1)))
 		; Calcula la posición siguiente
 	(cond
 		((= *Turno* -1) (setq Ficha *FichaO*))
 		((= *Turno* 1) (setq Ficha *FichaH*))
 	)
 	(if (and
+				(= *NumeroFichas* *MaxNumfichas*)
+					; Verifica que el juego esté en la seguda fase del juego
 				(= *Turno* Jugador)
 					; Verifica que le corresponda el turno (que le toque jugar)
 				(find PosicionActual '((0 2) (1 1)) :test #'equal)
 					; Verifica que esté en la diagonal y que se pueda mover la ficha
-				(equal (nth (+ (* 3 (first PosicionFinal)) (cadr PosicionFinal)) *Tablero*) nil) )
+				(equal (nth (+ (* 3 (first PosicionSiguiente)) (cadr PosicionSiguiente)) *Tablero*) nil) )
 					; Verfica que la posición a la que se quiere mover esté libre
 			(progn
 				(setf (nth
-					(+ (* 3 (first PosicionFinal)) (cadr PosicionFinal)) *Tablero*)
+					(+ (* 3 (first PosicionSiguiente)) (cadr PosicionSiguiente)) *Tablero*)
 					Ficha)
 						; Poner la Ficha en la Posición Final
 				(setf (nth
 					(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
 					nil)
 						; Dejar vacía la Posición Inicial
-				(setq *Turno* (* *Turno* -1)) )
+				(setq *Turno* (* *Turno* -1))
 					; Cambiar de turno
+				PosicionSiguiente )
 			NIL) )
 
 ;---------------------------------------------------
@@ -295,32 +317,35 @@
 ; retorna el valor NIL
 
 (defun desplazar-diagonal-b-izquierda(PosicionActual Jugador)
-	(setq PosicionFinal (list (- (first PosicionActual) 1) (- (cadr PosicionActual) 1)))
+	(setq PosicionSiguiente (list (- (first PosicionActual) 1) (- (cadr PosicionActual) 1)))
 		; Calcula la posición siguiente
 	(cond
 		((= *Turno* -1) (setq Ficha *FichaO*))
 		((= *Turno* 1) (setq Ficha *FichaH*))
 	)
 	(if (and
+				(= *NumeroFichas* *MaxNumfichas*)
+					; Verifica que el juego esté en la seguda fase del juego
 				(= *Turno* Jugador)
 					; Verifica que le corresponda el turno (que le toque jugar)
 				(= (first PosicionActual) (cadr PosicionActual))
 					; x = y, con esto sabemos que está en la diagonal \
 				(> (first PosicionActual) 0)
 					; x > 0
-				(equal (nth (+ (* 3 (first PosicionFinal)) (cadr PosicionFinal)) *Tablero*) nil) )
+				(equal (nth (+ (* 3 (first PosicionSiguiente)) (cadr PosicionSiguiente)) *Tablero*) nil) )
 					; Verfica que la posición a la que se quiere mover esté libre
 			(progn
 				(setf (nth
-					(+ (* 3 (first PosicionFinal)) (cadr PosicionFinal)) *Tablero*)
+					(+ (* 3 (first PosicionSiguiente)) (cadr PosicionSiguiente)) *Tablero*)
 					Ficha)
 						; Poner la Ficha en la Posición Final
 				(setf (nth
 					(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
 					nil)
 						; Dejar vacía la Posición Inicial
-				(setq *Turno* (* *Turno* -1)) )
+				(setq *Turno* (* *Turno* -1))
 					; Cambiar de turno
+				PosicionSiguiente )
 			NIL) )
 
 ;---------------------------------------------------
@@ -338,32 +363,35 @@
 ; retorna el valor NIL
 
 (defun desplazar-diagonal-b-derecha(PosicionActual Jugador)
-	(setq PosicionFinal (list (+ (first PosicionActual) 1) (+ (cadr PosicionActual) 1)))
+	(setq PosicionSiguiente (list (+ (first PosicionActual) 1) (+ (cadr PosicionActual) 1)))
 		; Calcula la posición siguiente
 	(cond
 		((= *Turno* -1) (setq Ficha *FichaO*))
 		((= *Turno* 1) (setq Ficha *FichaH*))
 	)
 	(if (and
+				(= *NumeroFichas* *MaxNumfichas*)
+					; Verifica que el juego esté en la seguda fase del juego
 				(= *Turno* Jugador)
 					; Verifica que le corresponda el turno (que le toque jugar)
 				(= (first PosicionActual) (cadr PosicionActual))
 					; x = y, con esto sabemos que está en la diagonal \
 				(< (first PosicionActual) 2)
 					; x < 2
-				(equal (nth (+ (* 3 (first PosicionFinal)) (cadr PosicionFinal)) *Tablero*) nil) )
+				(equal (nth (+ (* 3 (first PosicionSiguiente)) (cadr PosicionSiguiente)) *Tablero*) nil) )
 					; Verfica que la posición a la que se quiere mover esté libre
 			(progn
 				(setf (nth
-					(+ (* 3 (first PosicionFinal)) (cadr PosicionFinal)) *Tablero*)
+					(+ (* 3 (first PosicionSiguiente)) (cadr PosicionSiguiente)) *Tablero*)
 					Ficha)
 						; Poner la Ficha en la Posición Final
 				(setf (nth
 					(+ (* 3 (first PosicionActual)) (cadr PosicionActual)) *Tablero*)
 					nil)
 						; Dejar vacía la Posición Inicial
-				(setq *Turno* (* *Turno* -1)) )
+				(setq *Turno* (* *Turno* -1))
 					; Cambiar de turno
+				PosicionSiguiente )
 			NIL) )
 
 ;---------------------------------------------------
