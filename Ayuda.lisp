@@ -1,5 +1,6 @@
 ;---------------------------------------------------
 ; Funciones en este archivo:
+;
 ; (indice A)
 ; (poner-ficha Ficha A)
 ; (mover A B)
