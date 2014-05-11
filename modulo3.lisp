@@ -1,4 +1,4 @@
-; TE PUEDES AYUDAR DEL ARCHIVO AYUDA.LISP Y REGLASMODULARIZADAS.LISP
+; TE PUEDES AYUDAR DEL ARCHIVO AYUDA.LISP Y REGLASORDENADOR.LISP
 ;---------------------------------------------------
 ; Lista de hijos de la posición actual
 ; La lista debe ser de coordenadas (A B C D ...)
