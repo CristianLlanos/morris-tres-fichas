@@ -6,20 +6,6 @@
 ; Es necesario esto
 ;(in-package :ltk)
 
-(defun mostrar-tablero()
-  (let
-      ((tablero *tablero*))
-    (format t "~&| ~s ~s ~s | ~&| ~s ~s ~s | ~&| ~s ~s ~s |"
-	    (nth 0 tablero)
-	    (nth 1 tablero)
-	    (nth 2 tablero)
-	    (nth 3 tablero)
-	    (nth 4 tablero)
-	    (nth 5 tablero)
-	    (nth 6 tablero)
-	    (nth 7 tablero)
-	    (nth 8 tablero))))
-
 ;---------------------------------------------------
 ; Estos son datos de prueba que debes ser eliminados
 ; Considerar que estas variables son listas (x y)
@@ -39,8 +25,12 @@
 	; Aquí van las variables globales.
 (load "EstadoInicial.lisp")
 (load "EstadosMeta.lisp")
+<<<<<<< HEAD
 (load "Reglas-Modularizadas.lisp")
 (load "Heuristica.lisp")
+=======
+(load "ReglasModularizadas.lisp")
+>>>>>>> dffe39a0a620d8133a02354f66d7025b525907ca
 ;(load "PrimeroElMejor.lisp")
 
 ;---------------------------------------------------
@@ -68,11 +58,27 @@
 
 ;---------------------------------------------------
 
-(defun morris()
+#| (defun morris()
 	; Iniciar el juego (tablero y jugadores)
 	;(InicializarTablero)
 	;(InicializarHumano)
 	;(InicializarOrdenador)
-)
+) |#
 
-;(setq *Tablero* '(x o nil o nil x nil x o))
+(defun mostrar-tablero()
+  (let
+      ((tablero *tablero*))
+    (format t "~&| ~s ~s ~s | ~&| ~s ~s ~s | ~&| ~s ~s ~s |"
+	    (nth 0 tablero)
+	    (nth 1 tablero)
+	    (nth 2 tablero)
+	    (nth 3 tablero)
+	    (nth 4 tablero)
+	    (nth 5 tablero)
+	    (nth 6 tablero)
+	    (nth 7 tablero)
+	    (nth 8 tablero))))
+
+(inicializar-juego)
+(setq *Tablero* '(nil x nil o o x nil x o) *NumeroFichas* 6)
+;(setq *Tablero* '(nil nil nil nil nil nil nil nil nil) *NumeroFichas* 0)

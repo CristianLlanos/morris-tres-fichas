@@ -6,6 +6,7 @@
 (defun inicializar-juego()
 	(setq
 		*Tablero* '(nil nil nil nil nil nil nil nil nil)
+		*TableroAux*
 		;(setq *Posicion* '(-1 -1))
 		*Turno* 1
 		;(setq *hayGanadores* nil)
