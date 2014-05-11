@@ -65,20 +65,8 @@
 	;(InicializarOrdenador)
 ) |#
 
-(defun mostrar-tablero()
-  (let
-      ((tablero *tablero*))
-    (format t "~&| ~s ~s ~s | ~&| ~s ~s ~s | ~&| ~s ~s ~s |"
-	    (nth 0 tablero)
-	    (nth 1 tablero)
-	    (nth 2 tablero)
-	    (nth 3 tablero)
-	    (nth 4 tablero)
-	    (nth 5 tablero)
-	    (nth 6 tablero)
-	    (nth 7 tablero)
-	    (nth 8 tablero))))
-
 (inicializar-juego)
-(setq *Tablero* '(nil x nil o o x nil x o) *NumeroFichas* 6)
+(mostrar-tablero)
+;(setq *Tablero* '(nil x nil o o x nil x o) *NumeroFichas* 6)
+;(setq *Tablero* '(nil 1 nil 10 10 1 nil 1 10) *NumeroFichas* 6)
 ;(setq *Tablero* '(nil nil nil nil nil nil nil nil nil) *NumeroFichas* 0)

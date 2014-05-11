@@ -4,33 +4,112 @@
 ; 
 ; 
 
-(defvar *Operadores*)
+
+; PARECE QUE ESTO YA NO SE USARÁ
+#| (defvar *Operadores*)
 (defvar *Coordenadas*)
 (setq *Operadores* '(1 2 3 4 5 6 7 8 9))
 (setq *Coordenadas* '(
 	(0 0) (0 1) (0 2)
 	(2 0) (2 1) (2 2)
-	(3 0) (3 1) (3 2)))
+	(3 0) (3 1) (3 2))) |#
 
-;|x o x|	
-;|n n n|	A(2,2)->E(2) 
-;|o x o|
-; mayor posibilidad de convertirse en estado
-; meta
-; GANAR -> Orientado O
-; EMPATE-MOMENTANEO -> Orientado X
+;---------------------------------------------------
+; Posibilidades que tiene la posición actual de ser estado meta
+; Revisa
+;|X - O|
+;|- - -|
+;|- - -|
+; Revisa todas las 8 maneras de poder ser estado meta y las cuneta
+; una a una tomando en cuenta la ficha de la coordenada
+#| 
+(heuristica '(0 1))
+|#
+; Para este caso la ficha es X y debería retornar 2 que sería la
+; vertical | y la diagonal \ no cuenta la horizontal - porque hay una O
+(defun heuristica(Posicion)
+	)
 
-; (busqueda-primero-el-mejor '(0 0) '(0 2))
-; LE: (((0 0) 2))
-; P: ((0 0) 2)
-;	(0 0) (0 2) -->
-; LV: ((0 0))
-; Hijo: (1 0)
-; Sucesor: ((1 0) 3)
+;---------------------------------------------------
+
+;---------------------------------------------------
+; Verificar si al poner la ficha en la posición actual forma un estado meta
+;|X - X|
+;|- - -|
+;|- - -|
+#| 
+(podria-ser-meta-p 'X '(0 1))
+|#
+; Debe retornar T porque la horizontal si forma meta, aunque el resto no lo haga
+; En caso que por ninguna de las 8 forma pueda ser meta, retornar NIL
+(defun podria-ser-meta-p(Ficha Posicion)
+	)
+;---------------------------------------------------
+
+;---------------------------------------------------
+; Lista de hijos de la posición actual
+; La lista debe ser de coordenadas (A B C D ...)
+#| 
+(
+	'(0 1)
+	'(0 2)
+	'(1 1)
+	'(2 0)
+)
+|#
+(defun hijos-de(Posicion)
+	)
+;---------------------------------------------------
+
+;---------------------------------------------------
+; Ordena elementos por su PESO o COSTO
+; Un elemento es una lista con dos elementos:
+; 	- Una lista con coordenadas (que representan movimientos)
+; 	- Un número que representa el PESO dado por la función "heuristica"
+; Su sintaxis es:
+; ( (x y) (heuristica y) )
+#|
+(
+	('(0 0) '(0 1)) ; Este par representa el movimiento
+	2 ; Este número representa el COSTO dado por (heuristica '(0 1))
+)
+|#
+; Un ejemplo
+#| 
+(setq LE '(
+	( ((0 0) (1 1)) 2 )
+	( ((0 0) (1 2)) 4 )
+	( ((0 0) (0 1)) 1 )
+	( ((0 0) (2 1)) 3 ) ) )
+
+(ordenar-por-costo LE)
+|#
+; Debe retornar
+#| 
+(
+	( ((0 0) (0 1)) 1 )
+	( ((0 0) (1 1)) 2 )
+	( ((0 0) (2 1)) 3 )
+	( ((0 0) (1 2)) 4 )
+)
+|#
+
+(defun ordenar-por-costo(LE)
+	)
+
+;---------------------------------------------------
+
+;---------------------------------------------------
+; Obetner el siguiente movimiento
+
+(defun obtener-primero-mejor()
+	)
+
+;---------------------------------------------------
 
 ; Lista de sucesores de P
 ; (((x y) Costo Camino) ((x y) Costo Camino) ((x y) Costo Camino) ...)
-(defun es-posible(Operador Coordenada)
+#| (defun es-posible(Operador Coordenada)
 	(cond
 		((equal Operador 1) (progn
 			(setq Tablero *Tablero*)
@@ -95,7 +174,7 @@
 		(setq LE (ordenar-por-costo LE))
 			; Ordena la lista de espera LE de acuerdo a su costo
 	)
-)
+) |#
 
 #| (defun h(N Jugador) ; = F(N)
 	; N = (x y), coordenada de posición en el tablero.

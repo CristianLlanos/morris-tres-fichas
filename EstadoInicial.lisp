@@ -11,8 +11,8 @@
 		*Turno* 1
 		;(setq *hayGanadores* nil)
 		;(setq *Niveles* 0)
-		*FichaH* 'x
-		*FichaO* 'o
+		*FichaH* 'X
+		*FichaO* 'O
 		*NumeroFichas* 0
 		*MaxNumFichas* 6
 		*FichaVacia* NIL
