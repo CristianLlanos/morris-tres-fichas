@@ -1,12 +1,13 @@
 ;---------------------------------------------------
 ; Funciones en este archivo:
 ; (indice A)
-; (poner A J)
 ; (poner-ficha Ficha A)
 ; (mover A B)
 ; (mover-ficha Ficha A B)
 ; (turno-de-ficha)
 ; (cambiar-turno)
+; (es-movimiento-valido-fase-uno-p A J)
+; (es-movimiento-valido-fase-dos-p A J)
 ;---------------------------------------------------
 
 ;---------------------------------------------------
@@ -16,42 +17,6 @@
 (defun indice(Posicion)
 	(+ (* 3 (first Posicion)) (cadr Posicion))
 )
-
-;---------------------------------------------------
-
-;---------------------------------------------------
-; (poner A J)
-;
-; Toma como parámetros de entrada a las coordenas A (de la posición seleccionada)
-; y J (el jugador que llama a la función, con el valor de -1 para el ordenador
-; o 1 para el humano).
-; 
-; Evalúa la validez del posicionamiento (que sea correcto y justo). De ser válido
-; el poscionamiento, retorna la "posición" afectada, cambiando el valor de
-; la variable global *Turno*. De ser inválido, retorna el valor *FichaVacia*
-
-(defun poner(Posicion Jugador)
-	(setq Ficha (turno-de-ficha))
-	(if (and
-				(< *NumeroFichas* *MaxNumfichas*)
-					; Verificamos que esté en la primera fase del juego
-				(= *Turno* Jugador)
-					; Verifica que le corresponda el turno (que le toque jugar)
-				(equal (nth (indice Posicion) *Tablero*) *FichaVacia*))
-					; Verfica que la posición esté libre
-			(progn
-				(poner Ficha Posicion)
-						; Poner la Ficha en la Posición
-				(setq *NumeroFichas* (+ *NumeroFichas* 1))
-					; Actualiza el número de fichas que hay en el tablero.
-				(cambiar-turno)
-					; Cambiar de turno
-				Posicion
-				; Retorna T si se hizo el cambio con éxito
-			)
-		*FichaVacia* ) ; Retorna *FichaVacia* en caso de que no sea posible el desplazamiento
-	;(mostrar-tablero)
-	)
 
 ;---------------------------------------------------
 
@@ -75,19 +40,20 @@
 ; el valor de A en *FichaVacia*
 
 (defun mover(PosicionActual PosicionSiguiente)
-	(cond
-		((eq (nth (indice PosicionActual) *Tablero*) 'O) (setq Ficha *FichaO*))
-		((eq (nth (indice PosicionActual) *Tablero*) 'X) (setq Ficha *FichaH*)) )
-	(if (equal (nth (indice PosicionSiguiente) *Tablero*) *FichaVacia*)
+	(let ( (Ficha (nth (indice PosicionActual) *Tablero*)) )
+		(if (and
+			(not (equal Ficha *FichaVacia*))
+				; Verifica que la ficha a mover sea realmente una ficha
+			(equal (nth (indice PosicionSiguiente) *Tablero*) *FichaVacia*) )
 				; Verfica que la posición a la que se quiere mover esté libre
 		(progn
-			(poner Ficha PosicionSiguiente)
+			(poner-ficha Ficha PosicionSiguiente)
 					; Poner la Ficha en la Posición Final
-			(poner *FichaVacia* PosicionActual)
+			(poner-ficha *FichaVacia* PosicionActual)
 					; Dejar vacía la Posición Inicial
-			PosicionSiguiente )
-		*FichaVacia* )
-)
+			PosicionSiguiente ) ) ) )
+				; Retorna la siguiente posición si fue excitoso
+				; Retorna NIL en caso de que no sea posible el desplazamiento
 
 ;---------------------------------------------------
 
@@ -103,13 +69,11 @@
 				(equal (nth (indice PosicionSiguiente) *Tablero*) *FichaVacia*) )
 				; Verfica que la posición a la que se quiere mover esté libre
 		(progn
-			(poner Ficha PosicionSiguiente)
+			(poner-ficha Ficha PosicionSiguiente)
 					; Poner la Ficha en la Posición Final
-			(poner *FichaVacia* PosicionActual)
+			(poner-ficha *FichaVacia* PosicionActual)
 					; Dejar vacía la Posición Inicial
-			PosicionSiguiente )
-		*FichaVacia* )
-)
+			PosicionSiguiente ) ) )
 
 ;---------------------------------------------------
 
@@ -120,8 +84,7 @@
 (defun turno-de-ficha()
 	(cond
 		((= *Turno* *Ordenador*) *FichaO*)
-		((= *Turno* *Humano*) *FichaH*) )
-)
+		((= *Turno* *Humano*) *FichaH*) ) )
 
 ;---------------------------------------------------
 
@@ -132,5 +95,42 @@
 (defun cambiar-turno()
 	(setq *Turno* (* *Turno* -1))
 )
+
+;---------------------------------------------------
+
+;---------------------------------------------------
+; (es-movimiento-valido-fase-uno-p A J)
+; Predicado que verifica la validez del movimiento a realizar.
+; Necesita como parámetros la coordenada y el jugador.
+
+(defun es-movimiento-valido-fase-uno-p(Posicion Jugador)
+	(and
+		(< *NumeroFichas* *MaxNumfichas*)
+			; Verifica que el juego esté en la seguda fase del juego
+		(= *Turno* Jugador)
+			; Verifica que le corresponda el turno (que le toque jugar)
+		(equal (nth (indice Posicion) *Tablero*) *FichaVacia*) ) )
+			; Verfica que la posición esté libre
+		; Verdadero si es válido
+		; Falso si no es válido
+
+;---------------------------------------------------
+
+;---------------------------------------------------
+; (es-movimiento-valido-fase-dos-p A J)
+; Predicado que verifica la validez del movimiento a realizar.
+; Necesita como parámetros la coordenada y el jugador.
+
+(defun es-movimiento-valido-fase-dos-p(PosicionActual Jugador)
+	(let ((Ficha (turno-de-ficha)))
+		(and
+			(= *NumeroFichas* *MaxNumfichas*)
+				; Verifica que el juego esté en la seguda fase del juego
+			(= *Turno* Jugador)
+				; Verifica que le corresponda el turno (que le toque jugar)
+			(equal (nth (indice PosicionActual) *Tablero*) Ficha) ) ) )
+				; Verifica que la ficha que quiere mover le corresponde
+		; Verdadero si es válido
+		; Falso si no es válido
 
 ;---------------------------------------------------

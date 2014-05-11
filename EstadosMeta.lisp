@@ -27,8 +27,7 @@
 ; la lista EstadosMeta, en caso contrario retorna NIL
 
 (defun esEstadoMeta(a b c)
-	(setq Estado (list a b c))
-	(find Estado *EstadosMeta* :test #'equal)
-)
+	(let ( (Estado (list a b c)) )
+		(find Estado *EstadosMeta* :test #'equal) ) )
 
 ;---------------------------------------------------
