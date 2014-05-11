@@ -14,7 +14,7 @@
 
 ;|x o x|	
 ;|n n n|	A(2,2)->E(2) 
-;|o x o|	 
+;|o x o|
 ; mayor posibilidad de convertirse en estado
 ; meta
 ; GANAR -> Orientado O

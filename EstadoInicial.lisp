@@ -4,16 +4,20 @@
 ; nuevo juego
 
 (defun inicializar-juego()
-	(setq *Tablero* '(nil nil nil nil nil nil nil nil nil))
-	;(setq *Posicion* '(-1 -1))
-	(setq *Turno* 1)
-
-	;(setq *hayGanadores* nil)
-	;(setq *Niveles* 0)
-	(setq *FichaH* 'x)
-	(setq *FichaO* 'o)
-	(setq *NumeroFichas* 0)
-	(setq *MaxNumFichas* 6)
+	(setq
+		*Tablero* '(nil nil nil nil nil nil nil nil nil)
+		;(setq *Posicion* '(-1 -1))
+		*Turno* 1
+		;(setq *hayGanadores* nil)
+		;(setq *Niveles* 0)
+		*FichaH* 'x
+		*FichaO* 'o
+		*NumeroFichas* 0
+		*MaxNumFichas* 6
+		*FichaVacia* NIL
+		*Humano* 1
+		*Ordenador* -1
+	)
 )
 
 ;---------------------------------------------------
