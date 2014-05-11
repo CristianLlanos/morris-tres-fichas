@@ -39,7 +39,7 @@
 	; Aquí van las variables globales.
 (load "EstadoInicial.lisp")
 (load "EstadosMeta.lisp")
-(load "Reglas.lisp")
+(load "Reglas-Modularizadas.lisp")
 ;(load "PrimeroElMejor.lisp")
 
 ;---------------------------------------------------
