@@ -40,6 +40,7 @@
 (load "EstadoInicial.lisp")
 (load "EstadosMeta.lisp")
 (load "Reglas-Modularizadas.lisp")
+(load "Heuristica.lisp")
 ;(load "PrimeroElMejor.lisp")
 
 ;---------------------------------------------------
