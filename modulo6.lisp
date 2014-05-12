@@ -1,6 +1,6 @@
 ;---------------------------------------------------
 ; Obtener mejor posibilidad de juego
-; ( (A B) COSTO )
+; ( (A B) BENEFICIO )
  
 #| (setq ListaPosibilidades '(
 	( ((0 0) (1 1)) 2 )
@@ -10,22 +10,12 @@
  |#
 
 
-; Debe retornar la coordenada B del mejor COSTO
+; Debe retornar la coordenada B del mejor BENEFICIO
 ; Para este ejemplo sería (1 2)
 
 (defun mejor-posibilidad(ListaPosibilidades)
-	(let (
-		(Mayor ())
-		(Mejor ()) )
-		(progn
-			; Burbuja
-			(setq Mayor (cadar ListaPosibilidades))
-			(dolist (i ListaPosibilidades)
-				(if (< Mayor (cadr i))
-					(progn
-						(setq Mayor (cadr i))
-						(setq Mejor i) ) ) )
-			(cadar Mejor) ) ) )
+	(cadaar (sort (copy-seq ListaPosibilidades) #'list>)) )
+
 ;---------------------------------------------------
 
 ; (mejor-posibilidad ListaPosibilidades)

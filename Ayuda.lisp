@@ -9,6 +9,9 @@
 ; (cambiar-turno)
 ; (es-movimiento-valido-fase-uno-p A J)
 ; (es-movimiento-valido-fase-dos-p A J)
+; (tipo-ficha Ficha)
+; (mostrar-tablero)
+; (copiar A)
 ;---------------------------------------------------
 
 ;---------------------------------------------------
@@ -137,7 +140,7 @@
 ;---------------------------------------------------
 
 ;---------------------------------------------------
-; 
+; (tipo-ficha Ficha)
 
 (defun tipo-ficha(Ficha)
   (cond
@@ -148,7 +151,7 @@
 ;---------------------------------------------------
 
 ;---------------------------------------------------
-; 
+; (mostrar-tablero)
 
 (defun mostrar-tablero()
   (let
@@ -163,5 +166,25 @@
 	    (tipo-ficha (nth 6 tablero))
 	    (tipo-ficha (nth 7 tablero))
 	    (tipo-ficha (nth 8 tablero)) ) ) )
+
+;---------------------------------------------------
+
+;---------------------------------------------------
+; (copiar A)
+; Copia el valor de una variable para poder ser asignado a otra
+
+(defun copiar(dato) dato)
+
+;---------------------------------------------------
+
+;---------------------------------------------------
+; (sort (copy-seq Lista) #'list>)
+; Para ordenar por el segundo elemento de Mayor a menor
+
+(defun list> (a b)
+  (cond ((null a) (not (null b)))
+        ((null b) nil)
+        ((= (cadr a) (cadr b)) (list> (rest a) (rest b)))
+        (t (> (cadr a) (cadr b))) ))
 
 ;---------------------------------------------------

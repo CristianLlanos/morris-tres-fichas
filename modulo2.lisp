@@ -2,7 +2,7 @@
 ; ESTE ES TU TABLERO DE PRUEBA
 
 (setq
-	*Tablero* '(nil nil nil nil nil nil nil nil nil)
+	*Tablero* '(x nil x nil nil nil nil nil nil)
 	*FichaH* 'X
 	*FichaO* 'O
 	*FichaVacia* NIL)
@@ -61,8 +61,15 @@
 ; la lista EstadosMeta, en caso contrario retorna NIL
 
 (defun esEstadoMeta(a b c)
-	(let ( (Estado (list a b c)) )
-		(find Estado *EstadosMeta* :test #'equal) ) )
+	(let ((booleano NIL))
+		(progn
+			(dolist (i *EstadosMeta*) ; i es un Estado Meta
+				(if (and
+					(find a i :test #'equal)
+					(find b i :test #'equal)
+					(find c i :test #'equal) )
+					(setq booleano T) ) )
+			booleano ) ) )
 
 ;---------------------------------------------------
 
@@ -84,18 +91,11 @@
 (setq valores (buscar-en-tablero Ficha))
 (setq primero (first valores))
 (setq segundo (second valores))
-(esEstadoMeta Posicion primero segundo)
-
-; esto q me devuelve?; le pongo una condición o asi no mas 
-;ya lo borré
-
+(setq booleano (esEstadoMeta Posicion primero segundo))
+booleano
 )
-		
 
-;esta funcion me devuelve las posiciones ya ocupadas de la ficha en el tablero 
-;(setq *Tablero* '(nil nil X nil nil nil X nil nil))
-
-(defun buscar-en-tablero (Ficha)
+(defun obtener-fichas(Ficha)
 	(setq lista ())
     (loop for x from 0 to 2 do
     	(loop for y from 0 to 2 do
@@ -103,7 +103,6 @@
         	 (setq lista (cons (list x y) lista))
         )
     ))
-    lista
-    )
+    lista )
 
 
