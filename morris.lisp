@@ -25,12 +25,8 @@
 	; Aquí van las variables globales.
 (load "EstadoInicial.lisp")
 (load "EstadosMeta.lisp")
-<<<<<<< HEAD
-(load "Reglas-Modularizadas.lisp")
-(load "Heuristica.lisp")
-=======
 (load "ReglasModularizadas.lisp")
->>>>>>> dffe39a0a620d8133a02354f66d7025b525907ca
+(load "Heuristica.lisp")
 ;(load "PrimeroElMejor.lisp")
 
 ;---------------------------------------------------

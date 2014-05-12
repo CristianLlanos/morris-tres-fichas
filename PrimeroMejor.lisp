@@ -48,13 +48,15 @@
 
 ;---------------------------------------------------
 ; Lista de hijos de la posición actual
-; La lista debe ser de coordenadas (A B C D ...)
+; La lista debe ser de elementos a ser analizados que formarán parte de LE
+; Tienen la forma:
+; ( (A B) (heuristica y) )
 #| 
 (
-	'(0 1)
-	'(0 2)
-	'(1 1)
-	'(2 0)
+	( ((0 0) (1 1)) 2 )
+	( ((0 0) (1 2)) 4 )
+	( ((0 0) (0 1)) 1 )
+	( ((0 0) (2 1)) 3 )
 )
 |#
 (defun hijos-de(Posicion)
@@ -67,7 +69,7 @@
 ; 	- Una lista con coordenadas (que representan movimientos)
 ; 	- Un número que representa el PESO dado por la función "heuristica"
 ; Su sintaxis es:
-; ( (x y) (heuristica y) )
+; ( (A B) (heuristica y) )
 #|
 (
 	('(0 0) '(0 1)) ; Este par representa el movimiento
@@ -100,10 +102,69 @@
 ;---------------------------------------------------
 
 ;---------------------------------------------------
+; Obetner las fichas del mismo tipo en una lista de coordenadas
+;|X - X|
+;|- - -|
+;|- - -|
+#| 
+(obtener-fichas('X))
+|#
+; Debe retornar:
+; ( (0 0) (0 2) )
+(defun obtener-fichas(Ficha)
+	)
+;---------------------------------------------------
+
+;---------------------------------------------------
+; Obtener mejor posibilidad de juego
+; ( (A B) COSTO )
+#| 
+(setq ListaPosibilidades '(
+	( ((0 0) (1 1)) 2 )
+	( ((0 0) (1 2)) 4 )
+	( ((0 0) (0 1)) 1 )
+	( ((0 0) (2 1)) 3 ) ) )
+
+(mejor-posibilidad ListaPosibilidades)
+|#
+; Debe retornar la coordenada B del mejor COSTO
+; Para este ejemplo sería (2 1)
+
+(defun mejor-posibilidad(ListaPosibilidades)
+	)
+;---------------------------------------------------
+
+;---------------------------------------------------
 ; Obetner el siguiente movimiento
 
 (defun obtener-primero-mejor()
-	)
+	(let (
+		(ListaFichas (obtener-fichas *FichaO*))
+		(PosiblesMovimientos ())
+		(LE ())
+		; (LV ())
+		(P ())
+		(PosicionAnalizada NIL)
+		(Movimiento ()) )
+		(progn
+			(setq Movimiento
+				(dolist (i ListaFichas) ; i es una coordenada en el tablero (x y)
+					(setq LE (hijos-de i))
+					; (setq LV (list i))
+					(loop
+						(when (null LE) (return NIL))
+						(setq LE (ordenar-por-costo LE)) ; LE ordenado por COSTOS
+						(setq P (car LE)) ; Movimiento analizado
+						(setq PosicionAnalizada (cadr P)) ; Coordenada analizada
+						; (setq LV (cons PosicionAnalizada LV))
+						(setq LE (cdr LE)) ; Quita el elemento analizado
+						(when (podria-ser-meta-p PosicionAnalizada) (return P))
+						(cons P PosiblesMovimientos) ; Agrega el posible movimiento
+						) ) )
+			(if (null (Movimiento))
+				(progn
+					(setq Movimiento (mejor-posibilidad PosiblesMovimientos))
+					(mover (car Movimiento) (cadr Movimiento)) ) ) ) ) )
 
 ;---------------------------------------------------
 
