@@ -1,5 +1,6 @@
 ;---------------------------------------------------
 ; ESTE ES TU TABLERO DE PRUEBA
+
 (setq
 	*Tablero* '(nil nil nil nil nil nil nil nil nil)
 	*FichaH* 'X
@@ -77,8 +78,32 @@
 #| 
 (podria-ser-meta-p 'X '(0 1))
 |#
-; Debe retornar T porque la horizontal si forma meta, aunque el resto no lo haga
-; En caso que por ninguna de las 8 forma pueda ser meta, retornar NIL
+
 (defun podria-ser-meta-p(Ficha Posicion)
-	)
-;---------------------------------------------------
+
+(setq valores (buscar-en-tablero Ficha))
+(setq primero (first valores))
+(setq segundo (second valores))
+(esEstadoMeta Posicion primero segundo)
+
+; esto q me devuelve?; le pongo una condición o asi no mas 
+;ya lo borré
+
+)
+		
+
+;esta funcion me devuelve las posiciones ya ocupadas de la ficha en el tablero 
+;(setq *Tablero* '(nil nil X nil nil nil X nil nil))
+
+(defun buscar-en-tablero (Ficha)
+	(setq lista ())
+    (loop for x from 0 to 2 do
+    	(loop for y from 0 to 2 do
+        (if (eq (nth (+ (* 3 x) y) *tablero*) Ficha)
+        	 (setq lista (cons (list x y) lista))
+        )
+    ))
+    lista
+    )
+
+
