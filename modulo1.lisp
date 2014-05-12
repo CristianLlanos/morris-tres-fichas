@@ -1,7 +1,7 @@
 ;---------------------------------------------------
 ; ESTE ES TU TABLERO DE PRUEBA
 (setq
-	*Tablero* '(nil nil nil nil nil nil nil nil nil)
+	*Tablero* '(X X nil nil nil nil nil nil nil)
 	*FichaH* 'X
 	*FichaO* 'O
 	*FichaVacia* NIL)
@@ -59,7 +59,7 @@
 ; estén incluidos en el conjunto de estados meta de
 ; la lista EstadosMeta, en caso contrario retorna NIL
 
-(defun esEstadoMeta(a b c)
+(defun esEstadoMeta (a b c)
 	(let ( (Estado (list a b c)) )
 		(find Estado *EstadosMeta* :test #'equal) ) )
 
@@ -82,6 +82,62 @@
 |#
 ; Para este caso la ficha es X y debería retornar 2 que sería la
 ; vertical | y la diagonal \ no cuenta la horizontal - porque hay una O
-(defun heuristica(Posicion)
+
+(defun indice (Posicion)
+	(+ (* 3 (first Posicion)) (cadr Posicion))
+)
+
+(setf tablero-aux *tablero*)
+
+(defun convertir-a-numeros (v)
+	(cond ((equal v 'X ) 1)
+              ((equal v 'O ) 10)
+              ((equal v nil) 0)
+              )
+)
+
+(defun convertir-tablero ()
+	(mapcar #'convertir-a-numeros tablero-aux )
+)
+
+(defun heuristica (Posicion)
+
+	(let  ((suma (calcula-suma (indice Posicion) (convertir-tablero)))
+		    (Valor-Heuristico 0)
+		   )
+
+		(dolist (s suma)
+			(cond 
+				  ((equal 1 s) (setf Valor-Heuristico (+ Valor-Heuristico 1)))
+				  ((equal 2 s) (setf Valor-Heuristico (+ Valor-Heuristico 2)))
+				  
+			)
+		)
+
+		 Valor-Heuristico
+
+	
+
+)
+)
+
+(setf *tripletas* '((0 1 2) (3 4 5) (6 7 8) 	 (0 3 6) (1 4 7) (2 5 8)          (0 4 9) (2 4 6))
+ ) 
+
+(defun suma-de-tripleta (tablero tripleta indice)
+	(if (or (equal (car tripleta) indice) (equal (cadr tripleta) indice) (equal (caddr tripleta) indice))
+		
+          (+ (nth (car tripleta) tablero)
+             (nth (cadr tripleta) tablero)
+             (nth (caddr tripleta) tablero)) 
+
+          0   ;devuelve cero en caso negativo
 	)
+)
+
+(defun calcula-suma (indice Tablero)
+  (mapcar #'(lambda (tripleta) (suma-de-tripleta tablero tripleta indice)) *tripletas*)
+)
+
+
 ;---------------------------------------------------
