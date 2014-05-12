@@ -72,7 +72,7 @@
 ;---------------------------------------------------
 ; Posibilidades que tiene la posición actual de ser estado meta
 ; Revisa
-;|X - O|
+;|X X -|
 ;|- - -|
 ;|- - -|
 ; Revisa todas las 8 maneras de poder ser estado meta y las cuneta

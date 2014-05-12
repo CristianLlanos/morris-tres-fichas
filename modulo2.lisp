@@ -87,22 +87,18 @@
 |#
 
 (defun podria-ser-meta-p(Ficha Posicion)
-
-(setq valores (buscar-en-tablero Ficha))
-(setq primero (first valores))
-(setq segundo (second valores))
-(setq booleano (esEstadoMeta Posicion primero segundo))
-booleano
-)
+	(setq valores (buscar-en-tablero Ficha))
+	(setq primero (first valores))
+	(setq segundo (second valores))
+	(setq booleano (esEstadoMeta Posicion primero segundo))
+	booleano )
 
 (defun obtener-fichas(Ficha)
 	(setq lista ())
     (loop for x from 0 to 2 do
     	(loop for y from 0 to 2 do
         (if (eq (nth (+ (* 3 x) y) *tablero*) Ficha)
-        	 (setq lista (cons (list x y) lista))
-        )
-    ))
+        	 (setq lista (cons (list x y) lista)) ) ) )
     lista )
 
 

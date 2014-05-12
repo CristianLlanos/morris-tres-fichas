@@ -1,6 +1,14 @@
 #| 
 	Reglas implementadas tal y como están especificadas en el documento del proyecto
  |#
+ ; (izquierda A)
+ ; (derecha A)
+ ; (abajo A)
+ ; (arriba A)
+ ; (diagonal-a-derecha A)
+ ; (diagonal-a-izquierda A)
+ ; (diagonal-b-derecha A)
+ ; (diagonal-b-izquierda A)
 
 (defun izquierda(PosicionActual)
 	(let ( (PosicionSiguiente (list (first PosicionActual) (- (cadr PosicionActual) 1))) )

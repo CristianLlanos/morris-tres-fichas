@@ -12,6 +12,7 @@
 ; (tipo-ficha Ficha)
 ; (mostrar-tablero)
 ; (copiar A)
+; (sort (copy-seq ListaConSublistasSegundoElemento) #'list>)
 ;---------------------------------------------------
 
 ;---------------------------------------------------

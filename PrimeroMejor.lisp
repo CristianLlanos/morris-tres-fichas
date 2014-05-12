@@ -153,7 +153,7 @@
 					; (setq LV (list i))
 					(loop
 						(when (null LE) (return NIL))
-						(setq LE (ordenar-por-costo LE)) ; LE ordenado por COSTOS
+						(setq LE (ordenar-por-costo LE)) ; LE ordenado por BENEFICIO
 						(setq P (car LE)) ; Movimiento analizado
 						(setq PosicionAnalizada (cadr P)) ; Coordenada analizada
 						; (setq LV (cons PosicionAnalizada LV))
