@@ -13,6 +13,7 @@
 ; (mostrar-tablero)
 ; (copiar A)
 ; (sort (copy-seq ListaConSublistasSegundoElemento) #'list>)
+; (es-primera-fase-p)
 ;---------------------------------------------------
 
 ;---------------------------------------------------
@@ -185,7 +186,15 @@
 (defun list> (a b)
   (cond ((null a) (not (null b)))
         ((null b) nil)
-        ((= (cadr a) (cadr b)) (list> (rest a) (rest b)))
-        (t (> (cadr a) (cadr b))) ))
+        ;((= (cadr a) (cadr b)) (list> (rest a) (rest b)))
+        (t (>= (cadr a) (cadr b))) ))
+
+;---------------------------------------------------
+
+;---------------------------------------------------
+; (es-primera-fase-p)
+; T si lo es, NIL si es segunda fase
+
+(defun es-primera-fase-p() (< *NumeroFichas* *MaxNumFichas*))
 
 ;---------------------------------------------------

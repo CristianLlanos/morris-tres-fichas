@@ -14,7 +14,7 @@
 	(2 0) (2 1) (2 2)
 	(3 0) (3 1) (3 2))) |#
 
-;---------------------------------------------------
+#| #| #| #| #| ;---------------------------------------------------
 ; Posibilidades que tiene la posición actual de ser estado meta
 ; Revisa
 ;|X - O|
@@ -133,13 +133,13 @@
 (defun mejor-posibilidad(ListaPosibilidades)
 	)
 ;---------------------------------------------------
-
+ |# |# |# |# |#
 ;---------------------------------------------------
 ; Obetner el siguiente movimiento
 
 (defun obtener-primero-mejor()
 	(let (
-		(ListaFichas (obtener-fichas *FichaO*))
+		(ListaFichas ())
 		(PosiblesMovimientos ())
 		(LE ())
 		; (LV ())
@@ -147,24 +147,42 @@
 		(PosicionAnalizada NIL)
 		(Movimiento ()) )
 		(progn
-			(setq Movimiento
-				(dolist (i ListaFichas) ; i es una coordenada en el tablero (x y)
-					(setq LE (hijos-de i))
-					; (setq LV (list i))
-					(loop
-						(when (null LE) (return NIL))
-						(setq LE (ordenar-por-costo LE)) ; LE ordenado por BENEFICIO
-						(setq P (car LE)) ; Movimiento analizado
-						(setq PosicionAnalizada (cadr P)) ; Coordenada analizada
-						; (setq LV (cons PosicionAnalizada LV))
-						(setq LE (cdr LE)) ; Quita el elemento analizado
-						(when (podria-ser-meta-p PosicionAnalizada) (return P))
-						(cons P PosiblesMovimientos) ; Agrega el posible movimiento
-						) ) )
-			(if (null (Movimiento))
-				(progn
-					(setq Movimiento (mejor-posibilidad PosiblesMovimientos))
-					(mover (car Movimiento) (cadr Movimiento)) ) ) ) ) )
+			(if (es-primera-fase-p)
+				(progn ; Primera FASE
+					(setq ListaFichas (obtener-fichas *FichaO*))
+				)
+				(progn ; Segunda FASE
+					(setq ListaFichas (obtener-fichas *FichaVacia*))
+					;(setq Movimiento
+					; (print ListaFichas);---------------
+					(dolist (i ListaFichas) ; i es una coordenada en el tablero (x y)
+						(setq LE (hijos-de i))
+						; (setq LV (list i))
+						; (print LE);-----------
+						; (print LV);-----------
+						(loop
+							; (print 'otro-loop);-----------
+							; (print i);----------------
+							(when (null LE) (return (setq Movimiento NIL)))
+							(setq LE (ordenar-por-costo LE)) ; LE ordenado por BENEFICIO
+							(setq P (car LE)) ; Movimiento analizado
+							(setq PosicionAnalizada (cadar P)) ; Coordenada analizada
+							; (print 'PosicionAnalizada);----------
+							; (print PosicionAnalizada);-----------
+							; (print (cadr P));-----------
+							; (setq LV (cons PosicionAnalizada LV))
+							(setq LE (cdr LE)) ; Quita el elemento analizado
+							(when (podria-ser-meta-p *FichaO* PosicionAnalizada) (return (setq Movimiento P)))	
+							(setq PosiblesMovimientos (cons P PosiblesMovimientos)) ; Agrega el posible movimiento
+						)
+						; (print 'siguiente-padre)
+					) ;)
+					(if (null Movimiento)
+						(progn
+							(setq Movimiento (mejor-posibilidad PosiblesMovimientos))
+							(mover (car Movimiento) (cadr Movimiento)) ) )
+				) )
+			(mostrar-tablero) ) ) )
 
 ;---------------------------------------------------
 

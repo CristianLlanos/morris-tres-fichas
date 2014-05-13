@@ -14,8 +14,6 @@
 ; Para este ejemplo sería (1 2)
 
 (defun mejor-posibilidad(ListaPosibilidades)
-	(cadaar (sort (copy-seq ListaPosibilidades) #'list>)) )
+	(caar (sort (copy-seq ListaPosibilidades) #'list>)) )
 
 ;---------------------------------------------------
-
-; (mejor-posibilidad ListaPosibilidades)

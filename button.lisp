@@ -18,10 +18,10 @@
 			 )
 		(pack sc :expand 1 :fill :both)
 		(wm-title *tk* "Morris de tres fichas")
-		#| (itemconfigure lienzo ovalo1 :outline "blue")
+		(itemconfigure lienzo ovalo1 :fill "blue")
 		(itemconfigure lienzo ovalo1 :width 5)
-		(itemconfigure lienzo ovalo2 :outline "red")
-		(itemconfigure lienzo ovalo2 :width 5) |#
+		(itemconfigure lienzo ovalo2 :fill "red")
+		(itemconfigure lienzo ovalo2 :width 5)
 		 ) ) )
 (canvastest)
 

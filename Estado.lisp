@@ -3,6 +3,7 @@
 ; largo de toda la codificación del juego de Morris
 
 (defvar *Tablero*) ; Tablero de 3x3
+(defvar *TableroAux*)
 ;(defvar *PosicionActual*) ; Posición
 ;(defvar *PosicionSiguiente*) ; Posición
 (defvar *EstadosMeta*)

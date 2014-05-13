@@ -25,9 +25,21 @@
 	; Aquí van las variables globales.
 (load "EstadoInicial.lisp")
 (load "EstadosMeta.lisp")
+;---------------------------------------------------
+; Carga de las funciones de ayuda.
+
+(load "Ayuda.lisp")
+(load "ReglasOrdenador.lisp")
+
+;---------------------------------------------------
 (load "ReglasModularizadas.lisp")
-(load "Heuristica.lisp")
-;(load "PrimeroElMejor.lisp")
+(load "Modulo1.lisp")
+(load "Modulo2.lisp")
+(load "Modulo3.lisp")
+(load "Modulo4.lisp")
+(load "Modulo5.lisp")
+(load "Modulo6.lisp")
+(load "PrimeroMejor.lisp")
 
 ;---------------------------------------------------
 

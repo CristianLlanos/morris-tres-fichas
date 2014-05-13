@@ -1,4 +1,3 @@
-(load "Ayuda.lisp")
 ;---------------------------------------------------
 ; Ordena elementos por su MEDIDA o BENEFICIO
 ; Un elemento es una lista con dos elementos:
@@ -15,7 +14,7 @@
 ; Un ejemplo
 #| 
 (setq LE '(
-	( ((0 0) (1 1)) 2 )
+	( ((0 0) (1 1)) 1 )
 	( ((0 0) (1 2)) 4 )
 	( ((0 0) (0 1)) 1 )
 	( ((0 0) (2 1)) 3 ) ) )

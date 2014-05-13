@@ -27,7 +27,14 @@
 ; la lista EstadosMeta, en caso contrario retorna NIL
 
 (defun esEstadoMeta(a b c)
-	(let ( (Estado (list a b c)) )
-		(find Estado *EstadosMeta* :test #'equal) ) )
+	(let ((booleano NIL))
+		(progn
+			(dolist (i *EstadosMeta*) ; i es un Estado Meta
+				(if (and
+					(find a i :test #'equal)
+					(find b i :test #'equal)
+					(find c i :test #'equal) )
+					(setq booleano T) ) )
+			booleano ) ) )
 
 ;---------------------------------------------------
