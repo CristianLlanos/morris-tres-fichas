@@ -27,7 +27,6 @@
 (load "Modulo2.lisp")
 (load "Modulo3.lisp")
 (load "Modulo4.lisp")
-(load "Modulo5.lisp")
 (load "Modulo6.lisp")
 (load "PrimeroMejor.lisp")
 (load "Modulo7")

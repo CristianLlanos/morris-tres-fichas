@@ -1,7 +1,7 @@
 ;---------------------------------------------------
 ; Posibilidades que tiene la posición actual de ser estado meta
 ; Revisa
-;|X X -|
+;|O O -|
 ;|- - -|
 ;|- - -|
 ; Revisa todas las 8 maneras de poder ser estado meta y las cuneta
@@ -11,10 +11,6 @@
 |#
 ; Para este caso la ficha es X y debería retornar 2 que sería la
 ; vertical | y la diagonal \ no cuenta la horizontal - porque hay una O
-
-#| (defun indice (Posicion)
-	(+ (* 3 (first Posicion)) (cadr Posicion))
-) |#
 
 (defun convertir-a-numeros (v)
 	(cond ((equal v 'O ) 1)

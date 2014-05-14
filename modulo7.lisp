@@ -27,8 +27,9 @@
 	(mensaje-2)
 	(format t "~&***JUEGO DE MORRIS - 3 FICHAS***")
 	(mensaje-2)
+	(mensaje-3)
+	(mensaje-3)
 	(mostrar-tablero)
-	; (cuerpo)
 	(let (
 		(Indice NIL)
 		(Movimiento NIL)
