@@ -24,7 +24,6 @@
 (load "Estado.lisp")
 	; Aquí van las variables globales.
 (load "EstadoInicial.lisp")
-(load "EstadosMeta.lisp")
 ;---------------------------------------------------
 ; Carga de las funciones de ayuda.
 
@@ -32,6 +31,7 @@
 (load "ReglasOrdenador.lisp")
 
 ;---------------------------------------------------
+(load "EstadosMeta.lisp")
 (load "ReglasModularizadas.lisp")
 (load "Modulo1.lisp")
 (load "Modulo2.lisp")
@@ -40,6 +40,7 @@
 (load "Modulo5.lisp")
 (load "Modulo6.lisp")
 (load "PrimeroMejor.lisp")
+(load "Modulo7")
 
 ;---------------------------------------------------
 
@@ -66,15 +67,20 @@
 
 ;---------------------------------------------------
 
-#| (defun morris()
+(defun morris()
 	; Iniciar el juego (tablero y jugadores)
 	;(InicializarTablero)
 	;(InicializarHumano)
 	;(InicializarOrdenador)
-) |#
+	(inicializar-juego)
+	(jugar)
+)
 
-(inicializar-juego)
-(mostrar-tablero)
+(morris)
+
+; (mostrar-tablero)
+
+
 ;(setq *Tablero* '(nil x nil o o x nil x o) *NumeroFichas* 6)
 ;(setq *Tablero* '(nil 1 nil 10 10 1 nil 1 10) *NumeroFichas* 6)
 ;(setq *Tablero* '(nil nil nil nil nil nil nil nil nil) *NumeroFichas* 0)

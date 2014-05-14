@@ -14,7 +14,7 @@
 (defun hijos-de(Posicion)
 	(let (
 		(Hijos ())
-		(Tablero *Tablero*)
+		;(Tablero (copiar *Tablero*))
 		(uno NIL)
 		(dos NIL)
 		(tres NIL)

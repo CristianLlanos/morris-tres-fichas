@@ -2,10 +2,12 @@
 ; Funciones en este archivo:
 ;
 ; (indice A)
+; (aumentar-numero-fichas)
 ; (poner-ficha Ficha A)
 ; (mover A B)
 ; (mover-ficha Ficha A B)
 ; (turno-de-ficha)
+; (obtener-ficha Posicion)
 ; (cambiar-turno)
 ; (es-movimiento-valido-fase-uno-p A J)
 ; (es-movimiento-valido-fase-dos-p A J)
@@ -14,6 +16,7 @@
 ; (copiar A)
 ; (sort (copy-seq ListaConSublistasSegundoElemento) #'list>)
 ; (es-primera-fase-p)
+; (eliminar Elemento Lista)
 ;---------------------------------------------------
 
 ;---------------------------------------------------
@@ -23,6 +26,15 @@
 (defun indice(Posicion)
 	(+ (* 3 (first Posicion)) (cadr Posicion))
 )
+
+;---------------------------------------------------
+
+;---------------------------------------------------
+; (aumentar-numero-fichas)
+; Actualiza el número de fichas que hay en el tablero.
+
+(defun aumentar-numero-fichas()
+	(setq *NumeroFichas* (+ *NumeroFichas* 1)) )
 
 ;---------------------------------------------------
 
@@ -91,6 +103,14 @@
 	(cond
 		((= *Turno* *Ordenador*) *FichaO*)
 		((= *Turno* *Humano*) *FichaH*) ) )
+
+;---------------------------------------------------
+
+;---------------------------------------------------
+; (obtener-ficha Posicion)
+
+(defun obtener-ficha(Posicion)
+  (nth (indice Posicion) *Tablero*) )
 
 ;---------------------------------------------------
 
@@ -196,5 +216,36 @@
 ; T si lo es, NIL si es segunda fase
 
 (defun es-primera-fase-p() (< *NumeroFichas* *MaxNumFichas*))
+
+;---------------------------------------------------
+
+;---------------------------------------------------
+; (eliminar Elemento Lista)
+
+(defun eliminar(Elemento Lista)
+	(let ((NuevaLista ()))
+		(progn
+			(dolist (i Lista)
+				(if (not (equal i Elemento))
+				 	(setq NuevaLista (cons i NuevaLista)) ) )
+			NuevaLista ) ) )
+
+;---------------------------------------------------
+
+;---------------------------------------------------
+; (coordenada Indice)
+; Retorna una coordenada en el tablero
+
+(defun coordenada(Indice)
+	(cond
+		( (eq Indice 1) (list 0 0) )
+		( (eq Indice 2) (list 0 1) )
+		( (eq Indice 3) (list 0 2) )
+		( (eq Indice 4) (list 1 0) )
+		( (eq Indice 5) (list 1 1) )
+		( (eq Indice 6) (list 1 2) )
+		( (eq Indice 7) (list 2 0) )
+		( (eq Indice 8) (list 2 1) )
+		( (eq Indice 9) (list 2 2) ) ) )
 
 ;---------------------------------------------------

@@ -27,6 +27,21 @@
 	(mapcar #'convertir-a-numeros *TableroAux* )
 )
 
+(defun suma-de-tripleta (tablero tripleta indice)
+	(if (or (equal (car tripleta) indice) (equal (cadr tripleta) indice) (equal (caddr tripleta) indice))
+		
+          (+ (nth (car tripleta) tablero)
+             (nth (cadr tripleta) tablero)
+             (nth (caddr tripleta) tablero)) 
+
+          -1   ;devuelve cero en caso negativo
+	)
+)
+
+(defun calcula-suma (indice Tablero)
+  (mapcar #'(lambda (tripleta) (suma-de-tripleta tablero tripleta indice)) *Metas*)
+)
+
 (defun heuristica (Posicion)
 	(setq *TableroAux* (copiar *Tablero*))
 	(let  ((suma (calcula-suma (indice Posicion) (convertir-tablero)))
@@ -41,22 +56,5 @@
 		)
 		Valor-Heuristico ) )
 
-(setf *tripletas* '((0 1 2) (3 4 5) (6 7 8) 	 (0 3 6) (1 4 7) (2 5 8)          (0 4 8) (2 4 6))
- ) 
-
-(defun suma-de-tripleta (tablero tripleta indice)
-	(if (or (equal (car tripleta) indice) (equal (cadr tripleta) indice) (equal (caddr tripleta) indice))
-		
-          (+ (nth (car tripleta) tablero)
-             (nth (cadr tripleta) tablero)
-             (nth (caddr tripleta) tablero)) 
-
-          -1   ;devuelve cero en caso negativo
-	)
-)
-
-(defun calcula-suma (indice Tablero)
-  (mapcar #'(lambda (tripleta) (suma-de-tripleta tablero tripleta indice)) *tripletas*)
-)
 
 ;---------------------------------------------------

@@ -25,12 +25,12 @@
 			(poner-ficha (turno-de-ficha) Posicion) )
 				; Poner la Ficha en la Posición
 		(progn
-			(setq *NumeroFichas* (+ *NumeroFichas* 1))
+			(aumentar-numero-fichas)
 				; Actualiza el número de fichas que hay en el tablero.
 			(cambiar-turno) )
 				; Cambiar de turno
 		(print 'Movimiento-invalido) )
-		(mostrar-tablero) )
+		#| (mostrar-tablero) |# )
 
 ;---------------------------------------------------
 
@@ -54,7 +54,7 @@
 				; Ejecución del movimiento
 		(cambiar-turno) )
 			; Cambia el turno al otro jugador
-		(mostrar-tablero) )
+		#| (mostrar-tablero) |# )
 
 ;------------------------------------------------
 
@@ -77,7 +77,7 @@
 				; Ejecución del movimiento
 		(cambiar-turno) )
 			; Cambia el turno al otro jugador
-		(mostrar-tablero) )
+		#| (mostrar-tablero) |# )
 
 ;---------------------------------------------------
 
@@ -100,7 +100,7 @@
 				; Ejecución del movimiento
 		(cambiar-turno) )
 			; Cambia el turno al otro jugador
-		(mostrar-tablero) )
+		#| (mostrar-tablero) |# )
 
 ;---------------------------------------------------
 
@@ -123,7 +123,7 @@
 				; Ejecución del movimiento
 		(cambiar-turno) )
 			; Cambia el turno al otro jugador
-		(mostrar-tablero) )
+		#| (mostrar-tablero) |# )
 
 ;---------------------------------------------------
 
@@ -147,7 +147,7 @@
 				; Ejecución del movimiento
 		(cambiar-turno) )
 			; Cambia el turno al otro jugador
-		(mostrar-tablero) )
+		#| (mostrar-tablero) |# )
 
 ;---------------------------------------------------
 
@@ -171,7 +171,7 @@
 				; Ejecución del movimiento
 		(cambiar-turno) )
 			; Cambia el turno al otro jugador
-		(mostrar-tablero) )
+		#| (mostrar-tablero) |# )
 
 ;---------------------------------------------------
 
@@ -195,7 +195,7 @@
 				; Ejecución del movimiento
 		(cambiar-turno) )
 			; Cambia el turno al otro jugador
-		(mostrar-tablero) )
+		#| (mostrar-tablero) |# )
 
 ;---------------------------------------------------
 
@@ -219,6 +219,6 @@
 				; Ejecución del movimiento
 		(cambiar-turno) )
 			; Cambia el turno al otro jugador
-		(mostrar-tablero) )
+		#| (mostrar-tablero) |# )
 
 ;---------------------------------------------------

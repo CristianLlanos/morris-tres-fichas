@@ -38,3 +38,21 @@
 			booleano ) ) )
 
 ;---------------------------------------------------
+
+;---------------------------------------------------
+; (es-meta-potencial-p A B) Toma como parámentros a dos
+; listas con la forma (x y) y retorna la posición que le falta
+; para que forma un estado meta
+
+(defun es-meta-potencial-p(a b)
+	(dolist (i *EstadosMeta*) ; i es un Estado Meta
+		(if (find a i :test #'equal)
+			(progn
+				(setq i (eliminar a i))
+				(if (find b i :test #'equal)
+					(progn
+						(setq i (eliminar b i))
+						(setq i (car i))
+						(return i) ) ) ) ) ) )
+
+;---------------------------------------------------
