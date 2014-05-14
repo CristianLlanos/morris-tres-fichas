@@ -1,8 +1,8 @@
-(defun mensaje-1() (format t "~%Es tu turno: "))
+(defun mensaje-1() (format t "~%~%Es tu turno:"))
 (defun mensaje-2() (format t "~%********************************"))
 (defun mensaje-3() (format t "~%"))
 (defun mensaje-4() (format t "~%Escoge: "))
-(defun mensaje-5() (format t "~%Selecciona tu ficha: "))
+(defun mensaje-5() (format t "~%~%Selecciona tu ficha: "))
 
 (defun opciones-movimientos ()
 	(format t "~&Opciones de movimientos")
@@ -48,9 +48,7 @@
 							(mostrar-tablero) )
 						(when (not (null (poner (coordenada Indice) *Humano*))) (return))
 						(format t "~%Vuelve a intentarlo :P~%")
-						(mostrar-tablero)
-						(mensaje-1)
-						(mensaje-3) ) )
+						(mostrar-tablero) ) )
 				(progn
 					(loop ; Verifica que su ficha cumpla las condiciones para ser puesta en el tablero
 						(loop ; Verifica que la ficha seleccionada esté en el rango permitido
@@ -80,9 +78,15 @@
 						(when (not (NULL MovimientoRealizado)) (return))
 						(format t "~%Vuelve a intentarlo :P~%")
 						(mostrar-tablero) ) ) )
+			(mensaje-3)
+			(mostrar-tablero)
+			(mensaje-3)
 			(estado-del-juego)
 			(if *hayGanador* (progn (mostrar-tablero) (abort)))
+			(format t "~%Turno del ordenador:~%~%")
 			(obtener-primero-mejor)
+			(mostrar-tablero)
+			(mensaje-3)
 			(mensaje-2)
 			(jugar) ) ) )
 

@@ -9,15 +9,14 @@
 		; (LV ())
 		(P ())
 		(PosicionAnalizada NIL)
-		(Movimiento ())
-		(Oponente ()) )
+		(Movimiento ()) )
 		(progn
 			(if (es-primera-fase-p)
 				(progn ; Primera FASE
 					(if (= *NumeroFichas* 3) ; En el caso especial, para evitar que gane el oponente fácilmente
 						(progn
-							(setq Oponente (obtener-fichas *FichaH*))
-							(let ((Posicion (es-meta-potencial-p (car Oponente) (cadr Oponente))))
+							(setq ListaFichas (obtener-fichas *FichaH*))
+							(let ((Posicion (es-meta-potencial-p (car ListaFichas) (cadr ListaFichas))))
 								(if (and (not (NULL Posicion)) (equal (nth (indice Posicion) *Tablero*) *FichaVacia*))
 									(poner-ficha *FichaO* Posicion)
 									(progn
@@ -29,23 +28,13 @@
 					(aumentar-numero-fichas) )
 				(progn ; Segunda FASE
 					(setq ListaFichas (obtener-fichas *FichaO*))
-					;(setq Movimiento
-					; (print ListaFichas);---------------
 					(dolist (i ListaFichas) ; i es una coordenada en el tablero (x y)
 						(setq LE (hijos-de i))
-						; (setq LV (list i))
-						; (print LE);-----------
-						; (print LV);-----------
 						(loop
-							; (print 'otro-loop);-----------
-							; (print i);----------------
 							(when (NULL LE) (return NIL))
 							(setq LE (ordenar-por-costo LE)) ; LE ordenado por BENEFICIO
 							(setq P (car LE)) ; Movimiento analizado
 							(setq PosicionAnalizada (cadar P)) ; Coordenada analizada
-							; (print 'PosicionAnalizada);----------
-							; (print PosicionAnalizada);-----------
-							; (print (cadr P));-----------
 							; (setq LV (cons PosicionAnalizada LV))
 							(setq LE (cdr LE)) ; Quita el elemento analizado
 							(when (podria-ser-meta-2-p (caar P) PosicionAnalizada) (return (setq Movimiento (car P))))
@@ -53,11 +42,8 @@
 						) )
 					(if (NULL Movimiento)
 						(setq Movimiento (mejor-posibilidad PosiblesMovimientos)) )
-					; (print PosiblesMovimientos);----------
-					; (print Movimiento);----------
 					(mover (car Movimiento) (cadr Movimiento))
 				) )
-			(cambiar-turno)
-			#| (mostrar-tablero) |# ) ) )
+			(cambiar-turno) ) ) )
 
 ;---------------------------------------------------
