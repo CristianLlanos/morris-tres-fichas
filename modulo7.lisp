@@ -10,14 +10,14 @@
 		(format t "~&[ ~s ] ~s"
 	  		(+ contador 1)
 			(case (+ contador 1)
-				(1 'Desplazar-Izquierda)
-				(2 'Desplazar-Derecha)
-				(3 'Desplazar-Arriba)
-				(4 'Desplazar-Abajo)
-				(5 'Desplazar-Diagonal-a-derecha)
-				(6 'Desplazar-Diagonal-a-izquierda)
-				(7 'Desplazar-Diagonal-b-derecha)
-				(8 'Desplazar-Diagonal-b-izquierda) ) ) ) )
+				(1 'Izquierda)
+				(2 'Derecha)
+				(3 'Arriba)
+				(4 'Abajo)
+				(5 'Diagonal-a-derecha)
+				(6 'Diagonal-a-izquierda)
+				(7 'Diagonal-b-derecha)
+				(8 'Diagonal-b-izquierda) ) ) ) )
 
 (defun jugar()
 	; Verficar si existe ganado e imprimir mensaje
