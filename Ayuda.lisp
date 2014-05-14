@@ -16,7 +16,6 @@
 ; (copiar A)
 ; (sort (copy-seq ListaConSublistasSegundoElemento) #'list>)
 ; (es-primera-fase-p)
-; (eliminar Elemento Lista)
 ;---------------------------------------------------
 
 ;---------------------------------------------------
@@ -220,19 +219,6 @@
 ;---------------------------------------------------
 
 ;---------------------------------------------------
-; (eliminar Elemento Lista)
-
-(defun eliminar(Elemento Lista)
-	(let ((NuevaLista ()))
-		(progn
-			(dolist (i Lista)
-				(if (not (equal i Elemento))
-				 	(setq NuevaLista (cons i NuevaLista)) ) )
-			NuevaLista ) ) )
-
-;---------------------------------------------------
-
-;---------------------------------------------------
 ; (coordenada Indice)
 ; Retorna una coordenada en el tablero
 
@@ -247,5 +233,46 @@
 		( (eq Indice 7) (list 2 0) )
 		( (eq Indice 8) (list 2 1) )
 		( (eq Indice 9) (list 2 2) ) ) )
+
+;---------------------------------------------------
+
+;---------------------------------------------------
+; (obtner-fichas Ficha)
+
+(defun obtener-fichas(Ficha)
+	(let ((lista ()))
+		(progn
+			(loop for x from 0 to 2 do
+		    	(loop for y from 0 to 2 do
+		        (if (eq (nth (+ (* 3 x) y) *tablero*) Ficha)
+		        	 (setq lista (cons (list x y) lista)) ) ) )
+		    lista ) ) )
+
+;---------------------------------------------------
+
+;---------------------------------------------------
+; (estado-del-juego)
+
+(defun estado-del-juego()
+	(let (
+		(FichasHumano (obtener-fichas *FichaH*))
+		(FichasOrdenador (obtener-fichas *FichaO*)) )
+		(progn
+			(if (= (length FichasHumano) 3) ; Si el humano tiene sus fichas completas
+			 	(if (esEstadoMeta
+				 		(nth 0 FichasHumano)
+				 		(nth 1 FichasHumano)
+				 		(nth 2 FichasHumano) )
+				 	(progn
+				 		(format t "~%~%~%¡Ganaste!")
+				 		(setq *hayGanador* T) ) ) )
+			(if (= (length FichasOrdenador) 3) ; Si el humano tiene sus fichas completas
+			 	(if (esEstadoMeta
+				 		(nth 0 FichasOrdenador)
+				 		(nth 1 FichasOrdenador)
+				 		(nth 2 FichasOrdenador) )
+				 	(progn
+				 		(format t "~%~%~%¡Perdiste!")
+				 		(setq *hayGanador* T) ) ) ) ) ) )
 
 ;---------------------------------------------------

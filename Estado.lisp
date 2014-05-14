@@ -8,7 +8,6 @@
 (defvar *Turno*) ; Humano: 1, Ordenador: -1
 (defvar *Humano*) ; Humano: 1
 (defvar *Ordenador*) ; Ordenador: -1
-(defvar *Ganador*) ; Humano: 1, Ordenador: -1
 (defvar *hayGanador*) ; Booleano
 (defvar *FichaH*) ; Ficha del Humano: X
 (defvar *FichaO*) ; Ficha del Ordenador: O

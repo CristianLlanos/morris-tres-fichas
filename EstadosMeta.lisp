@@ -20,6 +20,19 @@
 ;---------------------------------------------------
 
 ;---------------------------------------------------
+; (eliminar Elemento Lista)
+
+(defun eliminar(Elemento Lista)
+	(let ((NuevaLista ()))
+		(progn
+			(dolist (i Lista)
+				(if (not (equal i Elemento))
+				 	(setq NuevaLista (cons i NuevaLista)) ) )
+			NuevaLista ) ) )
+
+;---------------------------------------------------
+
+;---------------------------------------------------
 ; (esEstadoMeta A B C) Toma como parámentros a tres
 ; listas con la forma (x y) y retorna una lista
 ; con los mismos parámetros: (A B C) en caso de que

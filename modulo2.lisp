@@ -7,15 +7,6 @@
 (podria-ser-meta-p 'X '(0 1))
 |#
 
-(defun obtener-fichas(Ficha)
-	(let ((lista ()))
-		(progn
-			(loop for x from 0 to 2 do
-		    	(loop for y from 0 to 2 do
-		        (if (eq (nth (+ (* 3 x) y) *tablero*) Ficha)
-		        	 (setq lista (cons (list x y) lista)) ) ) )
-		    lista ) ) )
-
 (defun evaluar-ficha(Posicion)
 	(list Posicion (heuristica Posicion) ) )
 

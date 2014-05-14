@@ -14,11 +14,11 @@
 		(progn
 			(if (es-primera-fase-p)
 				(progn ; Primera FASE
-					(if (= *NumeroFichas* 3)
+					(if (= *NumeroFichas* 3) ; En el caso especial, para evitar que gane el oponente fácilmente
 						(progn
 							(setq Oponente (obtener-fichas *FichaH*))
 							(let ((Posicion (es-meta-potencial-p (car Oponente) (cadr Oponente))))
-								(if (not (NULL Posicion))
+								(if (and (not (NULL Posicion)) (equal (nth (indice Posicion) *Tablero*) *FichaVacia*))
 									(poner-ficha *FichaO* Posicion)
 									(progn
 										(setq ListaFichas (obtener-fichas-vacias))
