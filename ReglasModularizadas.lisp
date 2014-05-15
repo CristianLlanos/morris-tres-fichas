@@ -27,10 +27,8 @@
 		(progn
 			(aumentar-numero-fichas)
 				; Actualiza el número de fichas que hay en el tablero.
-			(cambiar-turno) )
+			(cambiar-turno) ) ) )
 				; Cambiar de turno
-		(print 'Movimiento-invalido) )
-		#| (mostrar-tablero) |# )
 
 ;---------------------------------------------------
 
@@ -52,9 +50,8 @@
 				; Comprueba que el movimiento es válido para proceder a ejecutarlo
 			(izquierda PosicionActual) )
 				; Ejecución del movimiento
-		(cambiar-turno) )
+		(cambiar-turno) ) )
 			; Cambia el turno al otro jugador
-		#| (mostrar-tablero) |# )
 
 ;------------------------------------------------
 
@@ -75,9 +72,8 @@
 				; Comprueba que el movimiento es válido para proceder a ejecutarlo
 			(derecha PosicionActual) )
 				; Ejecución del movimiento
-		(cambiar-turno) )
+		(cambiar-turno) ) )
 			; Cambia el turno al otro jugador
-		#| (mostrar-tablero) |# )
 
 ;---------------------------------------------------
 
@@ -98,9 +94,8 @@
 				; Comprueba que el movimiento es válido para proceder a ejecutarlo
 			(abajo PosicionActual) )
 				; Ejecución del movimiento
-		(cambiar-turno) )
+		(cambiar-turno) ) )
 			; Cambia el turno al otro jugador
-		#| (mostrar-tablero) |# )
 
 ;---------------------------------------------------
 
@@ -121,9 +116,8 @@
 				; Comprueba que el movimiento es válido para proceder a ejecutarlo
 			(arriba PosicionActual) )
 				; Ejecución del movimiento
-		(cambiar-turno) )
+		(cambiar-turno) ) )
 			; Cambia el turno al otro jugador
-		#| (mostrar-tablero) |# )
 
 ;---------------------------------------------------
 
@@ -145,9 +139,8 @@
 				; Comprueba que el movimiento es válido para proceder a ejecutarlo
 			(diagonal-a-derecha PosicionActual) )
 				; Ejecución del movimiento
-		(cambiar-turno) )
+		(cambiar-turno) ) )
 			; Cambia el turno al otro jugador
-		#| (mostrar-tablero) |# )
 
 ;---------------------------------------------------
 
@@ -169,9 +162,8 @@
 				; Comprueba que el movimiento es válido para proceder a ejecutarlo
 			(diagonal-a-izquierda PosicionActual) )
 				; Ejecución del movimiento
-		(cambiar-turno) )
+		(cambiar-turno) ) )
 			; Cambia el turno al otro jugador
-		#| (mostrar-tablero) |# )
 
 ;---------------------------------------------------
 
@@ -193,9 +185,8 @@
 				; Comprueba que el movimiento es válido para proceder a ejecutarlo
 			(diagonal-b-derecha PosicionActual) )
 				; Ejecución del movimiento
-		(cambiar-turno) )
+		(cambiar-turno) ) )
 			; Cambia el turno al otro jugador
-		#| (mostrar-tablero) |# )
 
 ;---------------------------------------------------
 
@@ -217,8 +208,7 @@
 				; Comprueba que el movimiento es válido para proceder a ejecutarlo
 			(diagonal-b-izquierda PosicionActual) )
 				; Ejecución del movimiento
-		(cambiar-turno) )
+		(cambiar-turno) ) )
 			; Cambia el turno al otro jugador
-		#| (mostrar-tablero) |# )
 
 ;---------------------------------------------------

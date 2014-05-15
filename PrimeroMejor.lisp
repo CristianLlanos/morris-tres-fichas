@@ -20,7 +20,7 @@
 									(poner-ficha *FichaO* Posicion)
 									(progn
 										(setq ListaFichas (obtener-fichas-vacias))
-										(poner-ficha *FichaO* (caar ListaFichas))) ) ) )
+										(poner-ficha *FichaO* (caar ListaFichas)) ) ) ) )
 						(progn
 							(setq ListaFichas (obtener-fichas-vacias))
 							(poner-ficha *FichaO* (caar ListaFichas)) ) )

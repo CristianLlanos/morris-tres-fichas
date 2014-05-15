@@ -40,6 +40,9 @@
 	(jugar)
 )
 
+(defun nuevo-juego()
+	(load "morris.lisp"))
+
 (morris)
 
 ; (mostrar-tablero)
