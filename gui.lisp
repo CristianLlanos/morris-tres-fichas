@@ -1,6 +1,43 @@
 (load "ltk")
 (in-package :ltk)
 
+(defvar *Posiciones*)
+(setq *Posiciones* '(
+  ( (10 10) (110 110) ) ; 1
+  ( (160 10) (260 110) ) ; 2
+  ( (310 10) (410 110) ) ; 3
+  ( (10 160) (110 260) ) ; 4
+  ( (160 160) (260 260) ) ; 5
+  ( (310 160) (410 260) ) ; 6
+  ( (10 310) (110 410) ) ; 7
+  ( (160 310) (260 410) ) ; 8
+  ( (310 310) (410 410) ) ; 9
+  ) )
+
+(defun donde-estoy(evento)
+  (let (
+    (x-lienzo (event-x evento))
+    (y-lienzo (event-y evento))
+    (x1 NIL)
+    (y1 NIL)
+    (x2 NIL)
+    (y2 NIL) )
+     (progn
+      (loop
+        for posicion in *Posiciones*
+        for i from 0 to (length *Posiciones*)
+        do(progn
+          (setq x1 (caar posicion))
+          (setq y1 (cadar posicion))
+          (setq x2 (caadr posicion))
+          (setq y2 (cadadr posicion))
+          (cond 
+            ( (and
+                (> x-lienzo x1)
+                (< x-lienzo x2)
+                (> y-lienzo y1)
+                (< y-lienzo y2) ) (format t "Estoy en la ficha ~a~%" i) ) ) ) ) ) ) )
+
 (defun tablero()
 	(with-ltk ()
 		(let* (
@@ -28,6 +65,8 @@
 			 )
 		(pack sc :expand 1 :fill :both)
 		(wm-title *tk* "Morris de tres fichas")
+		(bind lienzo "<ButtonPress-1>" (lambda(evento)
+	      (donde-estoy evento) ) )
 		; Grosor de los caminos
 		(itemconfigure lienzo linea1 :width 30)
 		(itemconfigure lienzo linea2 :width 30)

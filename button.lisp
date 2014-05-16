@@ -1,29 +1,110 @@
 (load "ltk")
 (in-package :ltk)
 
-(defun canvastest()
-	(with-ltk ()
-		(let* (
-			(sc (make-instance 'canvas :height 410 :width 410))
-			(lienzo (canvas sc))
-			(ovalo1 (create-oval lienzo 10 10 100 100))
-			(ovalo2 (create-oval lienzo 150 10 250 100))
-			(ovalo3 (create-oval lienzo 300 10 400 100))
- 			(ovalo4 (create-oval lienzo 10 150 100 250))
-			(ovalo5 (create-oval lienzo 150 150 250 250))
-			(ovalo6 (create-oval lienzo 300 150 400 250))
-			(ovalo7 (create-oval lienzo 10 300 100 400))
-			(ovalo8 (create-oval lienzo 150 300 250 400))
-			(ovalo9 (create-oval lienzo 300 300 400 400))
-			 )
-		(pack sc :expand 1 :fill :both)
-		(wm-title *tk* "Morris de tres fichas")
-		(itemconfigure lienzo ovalo1 :fill "blue")
-		(itemconfigure lienzo ovalo1 :width 5)
-		(itemconfigure lienzo ovalo2 :fill "red")
-		(itemconfigure lienzo ovalo2 :width 5)
-		 ) ) )
-(canvastest)
+(defvar *Posiciones*)
+(setq *Posiciones* '(
+  ( (10 10) (110 110) ) ; 1
+  ( (160 10) (260 110) ) ; 2
+  ( (310 10) (410 110) ) ; 3
+  ( (10 160) (110 260) ) ; 4
+  ( (160 160) (260 260) ) ; 5
+  ( (310 160) (410 260) ) ; 6
+  ( (10 310) (110 410) ) ; 7
+  ( (160 310) (260 410) ) ; 8
+  ( (310 310) (410 410) ) ; 9
+  ) )
+
+(defun donde-estoy(evento)
+  (let (
+    (x-lienzo (event-x evento))
+    (y-lienzo (event-y evento))
+    (x1 NIL)
+    (y1 NIL)
+    (x2 NIL)
+    (y2 NIL) )
+     (progn
+      (loop
+        for posicion in *Posiciones*
+        for i from 0 to (length *Posiciones*)
+        do(progn
+          (setq x1 (caar posicion))
+          (setq y1 (cadar posicion))
+          (setq x2 (caadr posicion))
+          (setq y2 (cadadr posicion))
+          (cond 
+            ( (and
+                (> x-lienzo x1)
+                (< x-lienzo x2)
+                (> y-lienzo y1)
+                (< y-lienzo y2) ) (format t "Estoy en la ficha ~a~%" i) )
+             ) ) ) ) ) )
+
+(defun tablero()
+  (with-ltk ()
+    (let* (
+        (sc (make-instance 'canvas :height 420 :width 420))
+        (lienzo (canvas sc))
+        ; Posiciones de las fichas
+        (ovalo1 (create-oval lienzo 10 10 110 110))
+      )
+    (pack sc)
+    (wm-title *tk* "Morris de tres fichas")
+    ; Color y grosor de círuclos
+    (itemconfigure lienzo ovalo1 :fill "#394034")
+    (itemconfigure lienzo ovalo1 :width 0)
+    (bind lienzo "<ButtonPress-1>" (lambda(evento) (donde-estoy evento))
+    )
+     ) ) )
+(tablero)
+
+#| (defun scribble ()
+  (with-ltk ()
+    (let* (
+      (canvas (make-instance 'canvas))
+      (down nil) )
+    (pack canvas)
+    (bind canvas "<ButtonPress-1>" (lambda (evt)
+      (setf down t)
+      (create-oval canvas
+        (- (event-x evt) 10)
+        (- (event-y evt) 10)
+        (+ (event-x evt) 10)
+        (+ (event-y evt) 10) ) ) )
+    (bind canvas "<ButtonRelease-1>" (lambda (evt)
+      (declare (ignore evt))
+      (setf down nil) ) )
+    (bind canvas "<Motion>" (lambda (evt)
+      (when down
+        (create-oval canvas
+          (- (event-x evt) 10) (- (event-y evt) 10)
+          (+ (event-x evt) 10) (+ (event-y evt) 10) ) ) ) ) ) ) )
+(scribble) |#
+
+
+
+; (defun canvastest()
+; 	(with-ltk ()
+; 		(let* (
+; 			(sc (make-instance 'canvas :height 410 :width 410))
+; 			(lienzo (canvas sc))
+; 			(ovalo1 (create-oval lienzo 10 10 100 100))
+; 			(ovalo2 (create-oval lienzo 150 10 250 100))
+; 			(ovalo3 (create-oval lienzo 300 10 400 100))
+;  			(ovalo4 (create-oval lienzo 10 150 100 250))
+; 			(ovalo5 (create-oval lienzo 150 150 250 250))
+; 			(ovalo6 (create-oval lienzo 300 150 400 250))
+; 			(ovalo7 (create-oval lienzo 10 300 100 400))
+; 			(ovalo8 (create-oval lienzo 150 300 250 400))
+; 			(ovalo9 (create-oval lienzo 300 300 400 400))
+; 			 )
+; 		(pack sc :expand 1 :fill :both)
+; 		(wm-title *tk* "Morris de tres fichas")
+; 		(itemconfigure lienzo ovalo1 :fill "blue")
+; 		(itemconfigure lienzo ovalo1 :width 5)
+; 		(itemconfigure lienzo ovalo2 :fill "red")
+; 		(itemconfigure lienzo ovalo2 :width 5)
+; 		 ) ) )
+; (canvastest)
 
 
 #| (defun canvastest()
