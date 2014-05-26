@@ -17,13 +17,17 @@
 							(setq ListaFichas (obtener-fichas *FichaH*))
 							(let ((Posicion (es-meta-potencial-p (car ListaFichas) (cadr ListaFichas))))
 								(if (and (not (NULL Posicion)) (equal (nth (indice Posicion) *Tablero*) *FichaVacia*))
-									(poner-ficha *FichaO* Posicion)
+									(progn
+										(setq Movimiento Posicion)
+										(poner-ficha *FichaO* Movimiento))
 									(progn
 										(setq ListaFichas (obtener-fichas-vacias))
-										(poner-ficha *FichaO* (caar ListaFichas)) ) ) ) )
+										(setq Movimiento (caar ListaFichas))
+										(poner-ficha *FichaO* Movimiento) ) ) ) )
 						(progn
 							(setq ListaFichas (obtener-fichas-vacias))
-							(poner-ficha *FichaO* (caar ListaFichas)) ) )
+							(setq Movimiento (caar ListaFichas))
+							(poner-ficha *FichaO* Movimiento) ) )
 					(aumentar-numero-fichas) )
 				(progn ; Segunda FASE
 					(setq ListaFichas (obtener-fichas *FichaO*))
@@ -41,6 +45,7 @@
 					(if (NULL Movimiento)
 						(setq Movimiento (mejor-posibilidad PosiblesMovimientos)) )
 					(mover (car Movimiento) (cadr Movimiento)) ) )
-			(cambiar-turno) ) ) )
+			(cambiar-turno)
+			Movimiento ) ) )
 
 ;---------------------------------------------------

@@ -2,6 +2,7 @@
 ; Funciones en este archivo:
 ;
 ; (indice A)
+; (coordenada N)
 ; (aumentar-numero-fichas)
 ; (poner-ficha Ficha A)
 ; (mover A B)
@@ -16,6 +17,7 @@
 ; (copiar A)
 ; (sort (copy-seq ListaConSublistasSegundoElemento) #'list>)
 ; (es-primera-fase-p)
+; (estado-del-juego)
 ;---------------------------------------------------
 
 ;---------------------------------------------------
@@ -23,9 +25,15 @@
 ; Recibe como parámetro una coordenada  A (x,y) y devuelve su índice en el tablero
 
 (defun indice(Posicion)
-	(+ (* 3 (first Posicion)) (cadr Posicion))
-)
+	(+ (* 3 (first Posicion)) (cadr Posicion)) )
 
+;---------------------------------------------------
+
+;---------------------------------------------------
+; (coordenada N)
+; recibe como parámetro un índice y devuelve la coordenada (x y) en el tablero
+(defun coordenada-tablero(i)
+	(list (floor (/ i 3)) (mod i 3)) )
 ;---------------------------------------------------
 
 ;---------------------------------------------------

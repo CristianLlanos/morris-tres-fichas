@@ -34,3 +34,5 @@
 			(setq primero (first valores))
 			(setq segundo (second valores))
 			(esEstadoMeta PosicionSiguiente primero segundo) ) ) )
+
+;---------------------------------------------------

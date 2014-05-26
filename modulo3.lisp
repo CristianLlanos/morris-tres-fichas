@@ -49,4 +49,5 @@
 			(if (not (null ocho)) (progn (setq Hijos (cons (list (list Posicion ocho) (heuristica ocho)) Hijos)) (diagonal-b-derecha ocho)) )
 
 			Hijos) ) )
+
 ;---------------------------------------------------

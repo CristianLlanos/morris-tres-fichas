@@ -1,7 +1,43 @@
 (load "ltk")
 (in-package :ltk)
 
+;---------------------------------------------------
+
+(load "Estado.lisp")
+	; Aquí van las variables globales.
+(load "EstadoInicial.lisp")
+(load "EstadosMeta.lisp")
+;---------------------------------------------------
+; Carga de las funciones de ayuda.
+
+(load "Ayuda.lisp")
+(load "ReglasOrdenador.lisp")
+
+;---------------------------------------------------
+(load "ReglasModularizadas.lisp")
+(load "Modulo1.lisp")
+(load "Modulo2.lisp")
+(load "Modulo3.lisp")
+(load "Modulo4.lisp")
+(load "Modulo6.lisp")
+(load "PrimeroMejor.lisp")
+(load "Modulo7")
+
+;---------------------------------------------------
+
+;---------------------------------------------------
+
+(inicializar-juego)
+
+;---------------------------------------------------
+
 (defvar *Posiciones*)
+(defvar *colorFicha*)
+(defvar *colorHumano*)
+(defvar *colorOrdenador*)
+(defvar *jugada*)
+(defvar *turno*)
+
 (setq *Posiciones* '(
   ( (10 10) (110 110) ) ; 1
   ( (160 10) (260 110) ) ; 2
@@ -12,7 +48,40 @@
   ( (10 310) (110 410) ) ; 7
   ( (160 310) (260 410) ) ; 8
   ( (310 310) (410 410) ) ; 9
-  ) )
+  )
+  *colorFicha* '"#394034"
+  *colorHumano* '"#ff2f70"
+  *colorOrdenador* '"#0083e8" )
+
+(defun acerca-de ()
+    (with-ltk()
+      (let*
+	  ((copyleft (make-instance 'label))
+	   (boton-ok (make-instance 'button :text "Aceptar" :command (lambda() (setf *exit-mainloop* t)))))
+
+	(setf (text copyleft) "Morris de tres fichas - 2014")
+	
+	(minsize *tk* 400 100)
+	(maxsize *tk* 400 100)
+	(wm-title *tk* "Acerca de...")
+
+	(place copyleft 15 15)
+	(place boton-ok 160 50))))
+
+(defun mensaje-ganador(Ganador)
+    (with-ltk()
+      (let*
+	  ((copyleft (make-instance 'label))
+	   (boton-ok (make-instance 'button :text "Aceptar" :command (lambda() (setf *exit-mainloop* t)))))
+	(if (equal Ganador *Humano*)
+		(setf (text copyleft) "Felicidades, has ganado.")
+		(setf (text copyleft) "Has perdido.") )
+	(minsize *tk* 400 100)
+	(maxsize *tk* 400 100)
+	(wm-title *tk* "Fin del juego")
+
+	(place copyleft 15 15)
+	(place boton-ok 160 50))))
 
 (defun donde-estoy(evento)
   (let (
@@ -21,7 +90,8 @@
     (x1 NIL)
     (y1 NIL)
     (x2 NIL)
-    (y2 NIL) )
+    (y2 NIL)
+    (indice NIL) )
      (progn
       (loop
         for posicion in *Posiciones*
@@ -36,7 +106,8 @@
                 (> x-lienzo x1)
                 (< x-lienzo x2)
                 (> y-lienzo y1)
-                (< y-lienzo y2) ) (format t "Estoy en la ficha ~a~%" i) ) ) ) ) ) ) )
+                (< y-lienzo y2) ) (return (setq indice i)) ) ) ) )
+       indice ) ) )
 
 (defun tablero()
 	(with-ltk ()
@@ -62,11 +133,61 @@
 			(ovalo7 (create-oval lienzo 10 310 110 410))
 			(ovalo8 (create-oval lienzo 160 310 260 410))
 			(ovalo9 (create-oval lienzo 310 310 410 410))
-			 )
+			(indiceFicha NIL)
+    		(movimiento-humano NIL)
+    		(movimiento-ordenador NIL) )
 		(pack sc :expand 1 :fill :both)
 		(wm-title *tk* "Morris de tres fichas")
 		(bind lienzo "<ButtonPress-1>" (lambda(evento)
-	      (donde-estoy evento) ) )
+	      (setq indiceFicha (donde-estoy evento))
+	      ; (print indiceFicha);----
+	      (if (and (es-primera-fase-p) (numberp indiceFicha))
+	      	(progn
+		      	; (print 'pintar-ficha);----
+		      	; (print indiceFicha);----
+		      	; (print 'ya-pinto);----
+		      	; (print (coordenada-tablero indiceFicha));----
+			    (poner (coordenada-tablero indiceFicha) *Humano*)
+		      	(pintar-ficha indiceFicha *colorHumano*)
+		      	(format t "~%Tu jugada:")
+		      	(mostrar-tablero);----
+		      	; Buscando ganador
+			    (estado-del-juego)
+			    (if *hayGanador* (progn (mensaje-ganador *Humano*) (setf *exit-mainloop* t)))
+			    (pintar-ficha (indice (obtener-primero-mejor)) *colorOrdenador*)
+			    (format t "~%~%Juego del ordenador:")
+			    (mostrar-tablero);----
+			    (format t "~%")
+			    ; Buscando ganador
+			    (estado-del-juego)
+			    (if *hayGanador* (progn (mensaje-ganador *Ordenador*) (setf *exit-mainloop* t)))
+			     )
+	      	(progn
+	      		(push (coordenada-tablero indiceFicha) movimiento-humano)
+	      		(if (= (length movimiento-humano) 2)
+	      		 	(progn
+	      		 		; (print 'ahora-lo-lendo);----
+	      		 		; (print movimiento-humano);----
+	      		 		(mover-ficha *FichaH* (cadr movimiento-humano) (car movimiento-humano))
+	      		 		(pintar-ficha (indice (cadr movimiento-humano)) *colorFicha*)
+	      		 		(pintar-ficha (indice (car movimiento-humano)) *colorHumano*)
+	      		 		(cambiar-turno)
+	      		 		(format t "~%Tu jugada:")
+				      	(mostrar-tablero);----
+				      	; Buscando ganador
+				      	(estado-del-juego)
+			    		(if *hayGanador* (progn (mensaje-ganador *Humano*) (setf *exit-mainloop* t)))
+			    		(setq movimiento-ordenador (obtener-primero-mejor))
+					    (pintar-ficha (indice (car movimiento-ordenador)) *colorFicha*)
+					    (pintar-ficha (indice (cadr movimiento-ordenador)) *colorOrdenador*)
+					    (format t "~%~%Juego del ordenador:")
+					    (mostrar-tablero);----
+					    (format t "~%")
+					    ; Buscando ganador
+					    (estado-del-juego)
+					    (if *hayGanador* (progn (mensaje-ganador *Ordenador*) (setf *exit-mainloop* t)))
+	      		 		(setq movimiento-humano ()) ) ) ) )
+	       ) )
 		; Grosor de los caminos
 		(itemconfigure lienzo linea1 :width 30)
 		(itemconfigure lienzo linea2 :width 30)
@@ -77,23 +198,37 @@
 		(itemconfigure lienzo linea7 :width 30)
 		(itemconfigure lienzo linea8 :width 30)
 		; Color y grosor de círuclos
-		(itemconfigure lienzo ovalo1 :fill "#394034")
+		(itemconfigure lienzo ovalo1 :fill *colorFicha*)
 		(itemconfigure lienzo ovalo1 :width 5)
-		(itemconfigure lienzo ovalo2 :fill "black")
+		(itemconfigure lienzo ovalo2 :fill *colorFicha*)
 		(itemconfigure lienzo ovalo2 :width 5)
-		(itemconfigure lienzo ovalo3 :fill "black")
+		(itemconfigure lienzo ovalo3 :fill *colorFicha*)
 		(itemconfigure lienzo ovalo3 :width 5)
-		(itemconfigure lienzo ovalo4 :fill "black")
+		(itemconfigure lienzo ovalo4 :fill *colorFicha*)
 		(itemconfigure lienzo ovalo4 :width 5)
-		(itemconfigure lienzo ovalo5 :fill "black")
+		(itemconfigure lienzo ovalo5 :fill *colorFicha*)
 		(itemconfigure lienzo ovalo5 :width 5)
-		(itemconfigure lienzo ovalo6 :fill "black")
+		(itemconfigure lienzo ovalo6 :fill *colorFicha*)
 		(itemconfigure lienzo ovalo6 :width 5)
-		(itemconfigure lienzo ovalo7 :fill "black")
+		(itemconfigure lienzo ovalo7 :fill *colorFicha*)
 		(itemconfigure lienzo ovalo7 :width 5)
-		(itemconfigure lienzo ovalo8 :fill "black")
+		(itemconfigure lienzo ovalo8 :fill *colorFicha*)
 		(itemconfigure lienzo ovalo8 :width 5)
-		(itemconfigure lienzo ovalo9 :fill "black")
+		(itemconfigure lienzo ovalo9 :fill *colorFicha*)
 		(itemconfigure lienzo ovalo9 :width 5)
+
+		(defun pintar-ficha(posicion Color)
+			(cond
+				( (= posicion 0) (itemconfigure lienzo ovalo1 :fill Color) )
+				( (= posicion 1) (itemconfigure lienzo ovalo2 :fill Color) )
+				( (= posicion 2) (itemconfigure lienzo ovalo3 :fill Color) )
+				( (= posicion 3) (itemconfigure lienzo ovalo4 :fill Color) )
+				( (= posicion 4) (itemconfigure lienzo ovalo5 :fill Color) )
+				( (= posicion 5) (itemconfigure lienzo ovalo6 :fill Color) )
+				( (= posicion 6) (itemconfigure lienzo ovalo7 :fill Color) )
+				( (= posicion 7) (itemconfigure lienzo ovalo8 :fill Color) )
+				( (= posicion 8) (itemconfigure lienzo ovalo9 :fill Color) ) ) )
+
 		 ) ) )
+
 (tablero)
