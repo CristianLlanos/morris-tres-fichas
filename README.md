@@ -15,12 +15,12 @@ Para poder utilizar el juego Morris de Tres Fichas, es necesario tener instalado
  - [TCL](http://www.activestate.com/activetcl/downloads "Motor de renderizado para la interfaz gráfica")
  - [SBCL](http://www.sbcl.org/platform-table.html "Intérprete Lisp sugerido")
 
- A jugar
- -------
+A jugar
+-------
  - Navega desde tu consola hasta el directorio donde has guardado el juego `cd ~/Dowloads/morris-tres-fichas`
  - Abre el intérprete de Lisp (sbcl) `sbcl --load gui.lisp`
  - Disfrútalo
 
- Errores
- -------
- Si encuentras errores, por favor reportalos para poder mejorar nuestro juego :)
+Errores
+-------
+Si encuentras errores, por favor reportalos para poder mejorar nuestro juego :)
