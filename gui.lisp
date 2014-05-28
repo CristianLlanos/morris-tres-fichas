@@ -81,18 +81,17 @@
   *colorHumano* '"#ff2f70"
   *colorOrdenador* '"#0083e8" )
 
-(defun acerca-de ()
+(defun mensaje-texto (mensaje)
     (with-ltk()
       (let*
 	  ((copyleft (make-instance 'label))
 	   (boton-ok (make-instance 'button :text "Aceptar" :command (lambda() (setf *exit-mainloop* t)))))
 
-	(setf (text copyleft) "Morris de tres fichas - 2014")
+	(setf (text copyleft) mensaje)
 	
 	(minsize *tk* 400 100)
 	(maxsize *tk* 400 100)
-	(wm-title *tk* "Acerca de...")
-
+	(wm-title *tk* "Peligro")
 	(place copyleft 15 15)
 	(place boton-ok 160 50))))
 
@@ -189,53 +188,67 @@
 		(wm-title *tk* "Morris de tres fichas")
 		(bind lienzo "<ButtonPress-1>" (lambda(evento)
 	      (setq indiceFicha (donde-estoy evento))
-	       (print indiceFicha);----
-	      (if (and (es-primera-fase-p) (numberp indiceFicha))
-	      	(progn
-		      	(print 'pintar-ficha);----
-		      	(print indiceFicha);----
-		        (print 'ya-pinto);----
-		      	 (print (coordenada-tablero indiceFicha));----
-			    (poner (coordenada-tablero indiceFicha) *Humano*)
-		      	(pintar-ficha indiceFicha *colorHumano*)
-		      	(format t "~%Tu jugada:")
-		      	(mostrar-tablero);----
-		      	; Buscando ganador
-			    (estado-del-juego)
-			    (if *hayGanador* (progn (mensaje-ganador *Humano*) (setf *exit-mainloop* t)))
-			    (pintar-ficha (indice (obtener-primero-mejor)) *colorOrdenador*)
-			    (format t "~%~%Juego del ordenador:")
-			    (mostrar-tablero);----
-			    (format t "~%")
-			    ; Buscando ganador
-			    (estado-del-juego)
-			    (if *hayGanador* (progn (mensaje-ganador *Ordenador*) (setf *exit-mainloop* t)))
-			     )
-	      	(progn
-	      		(push (coordenada-tablero indiceFicha) movimiento-humano)
-	      		(if (= (length movimiento-humano) 2)
-	      		 	(progn
-	      		 		; (print 'ahora-lo-lendo);----
-	      		 		; (print movimiento-humano);----
-	      		 		(mover-ficha *FichaH* (cadr movimiento-humano) (car movimiento-humano))
-	      		 		(pintar-ficha (indice (cadr movimiento-humano)) *colorFicha*)
-	      		 		(pintar-ficha (indice (car movimiento-humano)) *colorHumano*)
-	      		 		(cambiar-turno)
-	      		 		(format t "~%Tu jugada:")
+	       ; (print indiceFicha);----
+	      (if (and (es-primera-fase-p) (numberp indiceFicha) (null *hayGanador*))
+	      	(progn;----
+		      	; (print 'pintar-ficha);----
+		      	; (print indiceFicha);----
+		       ;  (print 'ya-pinto);----
+		      	; (print (coordenada-tablero indiceFicha));----
+		      	(if (not (null (poner (coordenada-tablero indiceFicha) *Humano*)))
+		      		(progn
+				      	(pintar-ficha indiceFicha *colorHumano*)
+				      	(format t "~%Tu jugada:")
 				      	(mostrar-tablero);----
 				      	; Buscando ganador
-				      	(estado-del-juego)
-			    		(if *hayGanador* (progn (mensaje-ganador *Humano*) (setf *exit-mainloop* t)))
-			    		(setq movimiento-ordenador (obtener-primero-mejor))
-					    (pintar-ficha (indice (car movimiento-ordenador)) *colorFicha*)
-					    (pintar-ficha (indice (cadr movimiento-ordenador)) *colorOrdenador*)
-					    (format t "~%~%Juego del ordenador:")
-					    (mostrar-tablero);----
-					    (format t "~%")
-					    ; Buscando ganador
 					    (estado-del-juego)
-					    (if *hayGanador* (progn (mensaje-ganador *Ordenador*) (setf *exit-mainloop* t)))
-	      		 		(setq movimiento-humano ()) ) ) ) )
+					    (cond
+					    	( *hayGanador* (mensaje-ganador *Humano*))
+					    	( (null *hayGanador*) (progn
+							    (pintar-ficha (indice (obtener-primero-mejor)) *colorOrdenador*)
+							    (format t "~%~%Juego del ordenador:")
+							    (mostrar-tablero);----
+							    (format t "~%")
+							    ; Buscando ganador
+							    (estado-del-juego)
+							    (if *hayGanador* (progn (mensaje-ganador *Ordenador*) ))
+					    		 )) )
+		      		)
+		      		(mensaje-texto '"No puedes poner tu ficha en este lugar :P") )
+			    
+			     );----
+	      	(if (numberp indiceFicha)
+	      		(progn
+		      		(push (coordenada-tablero indiceFicha) movimiento-humano)
+		      		(if (and (= (length movimiento-humano) 2) (null *hayGanador*))
+		      		 	(progn
+		      		 		; (print 'ahora-lo-lendo);----
+		      		 		; (print movimiento-humano);----
+		      		 		(mover-ficha *FichaH* (cadr movimiento-humano) (car movimiento-humano))
+		      		 		(pintar-ficha (indice (cadr movimiento-humano)) *colorFicha*)
+		      		 		(pintar-ficha (indice (car movimiento-humano)) *colorHumano*)
+		      		 		(cambiar-turno)
+		      		 		(format t "~%Tu jugada:")
+					      	(mostrar-tablero);----
+					      	; Buscando ganador
+					      	(estado-del-juego)
+				    		(cond
+				    			( *hayGanador* (mensaje-ganador *Humano*))
+				    			( (null *hayGanador*) (progn
+						    		(setq movimiento-ordenador (obtener-primero-mejor))
+								    (pintar-ficha (indice (car movimiento-ordenador)) *colorFicha*)
+								    (pintar-ficha (indice (cadr movimiento-ordenador)) *colorOrdenador*)
+								    (format t "~%~%Juego del ordenador:")
+								    (mostrar-tablero);----
+								    (format t "~%")
+								    ; Buscando ganador
+								    (estado-del-juego)
+								    (if *hayGanador* (progn (mensaje-ganador *Ordenador*) ))
+				      		 		(setq movimiento-humano ())
+				    				 )) )
+		      		  ) ) )
+		      )
+	      	 )
 	       ) )
 		; Grosor de los caminos
 		(itemconfigure lienzo linea1 :width 30)
