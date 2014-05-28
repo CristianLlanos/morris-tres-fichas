@@ -24,6 +24,34 @@
 (load "Modulo7")
 
 ;---------------------------------------------------
+;EVALUACIONES PARA CADA CIRCULO
+(defun val-circulo (posx posy)
+    (sqrt (+ (expt (- posx 60 ) 2 ) (expt (- posy 60) 2) ) )
+  )
+(defun val-circulo2 (posx posy)
+    (sqrt (+ (expt (- posx 210 ) 2 ) (expt (- posy 60) 2) ) )
+  )
+(defun val-circulo3 (posx posy)
+    (sqrt (+ (expt (- posx 360 ) 2 ) (expt (- posy 60) 2) ) )
+  )
+(defun val-circulo4 (posx posy)
+    (sqrt (+ (expt (- posx 60 ) 2 ) (expt (- posy 210) 2) ) )
+  )
+(defun val-circulo5 (posx posy)
+    (sqrt (+ (expt (- posx 210 ) 2 ) (expt (- posy 210) 2) ) )
+  )
+(defun val-circulo6 (posx posy)
+    (sqrt (+ (expt (- posx 360 ) 2 ) (expt (- posy 210) 2) ) )
+  )
+(defun val-circulo7 (posx posy)
+    (sqrt (+ (expt (- posx 60 ) 2 ) (expt (- posy 360) 2) ) )
+  )
+(defun val-circulo8 (posx posy)
+    (sqrt (+ (expt (- posx 210 ) 2 ) (expt (- posy 360) 2) ) )
+  )
+(defun val-circulo9 (posx posy)
+    (sqrt (+ (expt (- posx 360 ) 2 ) (expt (- posy 360) 2) ) )
+  )
 
 ;---------------------------------------------------
 
@@ -84,30 +112,51 @@
 	(place boton-ok 160 50))))
 
 (defun donde-estoy(evento)
-  (let (
-    (x-lienzo (event-x evento))
-    (y-lienzo (event-y evento))
-    (x1 NIL)
-    (y1 NIL)
-    (x2 NIL)
-    (y2 NIL)
-    (indice NIL) )
-     (progn
-      (loop
-        for posicion in *Posiciones*
-        for i from 0 to (length *Posiciones*)
-        do(progn
-          (setq x1 (caar posicion))
-          (setq y1 (cadar posicion))
-          (setq x2 (caadr posicion))
-          (setq y2 (cadadr posicion))
-          (cond 
-            ( (and
-                (> x-lienzo x1)
-                (< x-lienzo x2)
-                (> y-lienzo y1)
-                (< y-lienzo y2) ) (return (setq indice i)) ) ) ) )
-       indice ) ) )
+  
+  (let ((indice NIL) )
+     
+     (if( < (val-circulo (event-x evento) (event-y evento) ) 50 )
+                  (setq indice 0)
+                  ;circulo 2
+                  (if( < (val-circulo2 (event-x evento) (event-y evento) ) 50 )
+                      (setq indice 1)
+                     ;circulo 3
+                     (if( < (val-circulo3 (event-x evento) (event-y evento) ) 50 )
+                         (setq indice 2)
+                        ;circulo 4
+                        (if( < (val-circulo4 (event-x evento) (event-y evento) ) 50 )
+                            (setq indice 3)
+                           ;circulo 5
+                           (if( < (val-circulo5 (event-x evento) (event-y evento) ) 50 )
+                               (setq indice 4)
+                              ;circulo 6
+                              (if( < (val-circulo6 (event-x evento) (event-y evento) ) 50 )
+                                  (setq indice 5)
+                                 ;circulo 7 
+                                 (if( < (val-circulo7 (event-x evento) (event-y evento) ) 50 )
+                                     (setq indice 6)
+                                    ;circulo 8
+                                    (if( < (val-circulo8 (event-x evento) (event-y evento) ) 50 )
+                                        (setq indice 7)
+                                       ;circulo 9
+                                       (if( < (val-circulo9 (event-x evento) (event-y evento) ) 50 )
+                                           (setq indice 8)
+                                           (setq indice nil)
+                                       )  
+                                    ) 
+                                 ) 
+                              ) 
+                           ) 
+                        ) 
+                     ) 
+                  )
+                )
+
+     indice
+     ) 
+
+
+ )
 
 (defun tablero()
 	(with-ltk ()
@@ -140,13 +189,13 @@
 		(wm-title *tk* "Morris de tres fichas")
 		(bind lienzo "<ButtonPress-1>" (lambda(evento)
 	      (setq indiceFicha (donde-estoy evento))
-	      ; (print indiceFicha);----
+	       (print indiceFicha);----
 	      (if (and (es-primera-fase-p) (numberp indiceFicha))
 	      	(progn
-		      	; (print 'pintar-ficha);----
-		      	; (print indiceFicha);----
-		      	; (print 'ya-pinto);----
-		      	; (print (coordenada-tablero indiceFicha));----
+		      	(print 'pintar-ficha);----
+		      	(print indiceFicha);----
+		        (print 'ya-pinto);----
+		      	 (print (coordenada-tablero indiceFicha));----
 			    (poner (coordenada-tablero indiceFicha) *Humano*)
 		      	(pintar-ficha indiceFicha *colorHumano*)
 		      	(format t "~%Tu jugada:")
