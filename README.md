@@ -17,7 +17,7 @@ Para poder utilizar el juego Morris de Tres Fichas, es necesario tener instalado
 
 A jugar
 -------
- - Navega desde tu consola hasta el directorio donde has guardado el juego `cd ~/Dowloads/morris-tres-fichas`
+ - Navega desde tu consola hasta el directorio donde has guardado el juego `cd ~/Downloads/morris-tres-fichas`
  - Abre el intérprete de Lisp (sbcl) `sbcl --load gui.lisp`
  - Disfrútalo
 
