@@ -157,6 +157,27 @@
 
  )
 
+(defun viable-mov (indActual indSig)
+
+ (let ( (Posmov (hijos-de (coordenada indActual)))
+	   (FichaSig  (coordenada indSig))
+       (viable  NIL)
+     )
+		
+			(dolist (i Posmov) ; i es una coordenada en el tablero (x y)
+					(if(equal (cadar i)	FichaSig)
+				    	(setq viable T)	
+			        )
+		 	)
+		viable
+ ) 
+
+)
+
+
+
+
+
 (defun tablero()
 	(with-ltk ()
 		(let* (
