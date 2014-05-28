@@ -157,24 +157,21 @@
 
  )
 
-(defun viable-mov (indActual indSig)
-
- (let ( (Posmov (hijos-de (coordenada indActual)))
-	   (FichaSig  (coordenada indSig))
-       (viable  NIL)
-     )
-		
+(defun movimiento-valido-p(A B)
+ (let ( (Posmov (hijos-de A))
+       (viable  NIL) )
+ 		; (print 'movimiento-valido-p);----
+ 		; (print A);----
+ 		; (print 'hijos-de-A);----
+ 		; (print Posmov);----
+ 		; (mostrar-tablero);----
+ 		(if (equal (obtener-ficha A) *FichaH*)
 			(dolist (i Posmov) ; i es una coordenada en el tablero (x y)
-					(if(equal (cadar i)	FichaSig)
-				    	(setq viable T)	
-			        )
-		 	)
-		viable
- ) 
-
-)
-
-
+				; (print (cadar i));---
+				; (print B);---
+				(if(equal (cadar i)	B)
+			    	(setq viable T)	) ) )
+		viable ) )
 
 
 
@@ -218,7 +215,7 @@
 		      	; (print (coordenada-tablero indiceFicha));----
 		      	(if (not (null (poner (coordenada-tablero indiceFicha) *Humano*)))
 		      		(progn
-				      	(pintar-ficha indiceFicha *colorHumano*)
+				      	; (pintar-ficha indiceFicha *colorHumano*)
 				      	(format t "~%Tu jugada:")
 				      	(mostrar-tablero);----
 				      	; Buscando ganador
@@ -226,51 +223,48 @@
 					    (cond
 					    	( *hayGanador* (mensaje-ganador *Humano*))
 					    	( (null *hayGanador*) (progn
-							    (pintar-ficha (indice (obtener-primero-mejor)) *colorOrdenador*)
+					    		(obtener-primero-mejor)
+							    ; (pintar-ficha (indice (obtener-primero-mejor)) *colorOrdenador*)
 							    (format t "~%~%Juego del ordenador:")
 							    (mostrar-tablero);----
 							    (format t "~%")
 							    ; Buscando ganador
 							    (estado-del-juego)
-							    (if *hayGanador* (progn (mensaje-ganador *Ordenador*) ))
-					    		 )) )
-		      		)
-		      		(mensaje-texto '"No puedes poner tu ficha en este lugar :P") )
-			    
-			     );----
+							    (if *hayGanador* (progn (mensaje-ganador *Ordenador*) )) ) ) ) )
+		      		(mensaje-texto '"No puedes poner tu ficha en este lugar :P") ) )
 	      	(if (numberp indiceFicha)
 	      		(progn
 		      		(push (coordenada-tablero indiceFicha) movimiento-humano)
+		      		; (print (length movimiento-humano))
 		      		(if (and (= (length movimiento-humano) 2) (null *hayGanador*))
 		      		 	(progn
 		      		 		; (print 'ahora-lo-lendo);----
 		      		 		; (print movimiento-humano);----
-		      		 		(mover-ficha *FichaH* (cadr movimiento-humano) (car movimiento-humano))
-		      		 		(pintar-ficha (indice (cadr movimiento-humano)) *colorFicha*)
-		      		 		(pintar-ficha (indice (car movimiento-humano)) *colorHumano*)
-		      		 		(cambiar-turno)
-		      		 		(format t "~%Tu jugada:")
-					      	(mostrar-tablero);----
-					      	; Buscando ganador
-					      	(estado-del-juego)
-				    		(cond
-				    			( *hayGanador* (mensaje-ganador *Humano*))
-				    			( (null *hayGanador*) (progn
-						    		(setq movimiento-ordenador (obtener-primero-mejor))
-								    (pintar-ficha (indice (car movimiento-ordenador)) *colorFicha*)
-								    (pintar-ficha (indice (cadr movimiento-ordenador)) *colorOrdenador*)
-								    (format t "~%~%Juego del ordenador:")
-								    (mostrar-tablero);----
-								    (format t "~%")
-								    ; Buscando ganador
-								    (estado-del-juego)
-								    (if *hayGanador* (progn (mensaje-ganador *Ordenador*) ))
-				      		 		(setq movimiento-humano ())
-				    				 )) )
-		      		  ) ) )
-		      )
-	      	 )
-	       ) )
+		      		 		(if (movimiento-valido-p (cadr movimiento-humano) (car movimiento-humano))
+		      		 			(progn
+				      		 		(mover-ficha *FichaH* (cadr movimiento-humano) (car movimiento-humano))
+				      		 		; (pintar-ficha (indice (cadr movimiento-humano)) *colorFicha*)
+				      		 		; (pintar-ficha (indice (car movimiento-humano)) *colorHumano*)
+				      		 		(cambiar-turno)
+				      		 		(format t "~%Tu jugada:")
+							      	(mostrar-tablero);----
+							      	; Buscando ganador
+							      	(estado-del-juego)
+						    		(cond
+						    			( *hayGanador* (mensaje-ganador *Humano*))
+						    			( (null *hayGanador*) (progn
+								    		(setq movimiento-ordenador (obtener-primero-mejor))
+										    ; (pintar-ficha (indice (car movimiento-ordenador)) *colorFicha*)
+										    ; (pintar-ficha (indice (cadr movimiento-ordenador)) *colorOrdenador*)
+										    (format t "~%~%Juego del ordenador:")
+										    (mostrar-tablero);----
+										    (format t "~%")
+										    ; Buscando ganador
+										    (estado-del-juego)
+										    (if *hayGanador* (progn (mensaje-ganador *Ordenador*) ) ) ) ) ) )
+		      		 				 (mensaje-texto '"El movimiento que intentas hacer es invalido :P") )
+							(setq movimiento-humano ()) ) ) ) ) )
+			(pintar-tablero) ) )
 		; Grosor de los caminos
 		(itemconfigure lienzo linea1 :width 30)
 		(itemconfigure lienzo linea2 :width 30)
@@ -311,6 +305,15 @@
 				( (= posicion 6) (itemconfigure lienzo ovalo7 :fill Color) )
 				( (= posicion 7) (itemconfigure lienzo ovalo8 :fill Color) )
 				( (= posicion 8) (itemconfigure lienzo ovalo9 :fill Color) ) ) )
+
+		(defun pintar-tablero()
+			(loop for ficha in *tablero*
+				  for i from 0 to (length *tablero*)
+				  do(progn
+				  	(cond
+				  		((equal ficha *FichaVacia*) (pintar-ficha i *colorFicha*))
+				  		((equal ficha *fichaO*) (pintar-ficha i *colorOrdenador*))
+				  		((equal ficha *fichaH*) (pintar-ficha i *colorHumano*)) ) )) )
 
 		 ) ) )
 
