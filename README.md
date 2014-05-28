@@ -9,10 +9,18 @@ Autores:
  - Yuliana Flores
  - Fredy Huamani
 
-Notas
------
+Requerimientos
+--------------
+Para poder utilizar el juego Morris de Tres Fichas, es necesario tener instalado dos componentes importantes:
+ - [TCL](http://www.activestate.com/activetcl/downloads "Motor de renderizado para la interfaz gráfica")
+ - [SBCL](http://www.sbcl.org/platform-table.html "Intérprete Lisp sugerido")
 
- - tic-tac-toe (snake-case)
- - Indentation: Revisar "button.lisp"
- - Importante poner comentarios
- - Al agregar variables globales: comunicar al resto del grupo
+ A jugar
+ -------
+ - Navega desde tu consola hasta el directorio donde has guardado el juego `cd ~/Dowloads/morris-tres-fichas`
+ - Abre el intérprete de Lisp (sbcl) `sbcl --load gui.lisp`
+ - Disfrútalo
+
+ Errores
+ -------
+ Si encuentras errores, por favor reportalos para poder mejorar nuestro juego :)
