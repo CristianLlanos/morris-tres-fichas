@@ -1,4 +1,4 @@
-morris-tres-jugadores
+morris-tres-fichas
 =====================
 
 Proyecto del curso de Inteligencia Artificial para el profesor Rolando Maguiña (2014-1)
@@ -17,8 +17,14 @@ Para poder utilizar el juego Morris de Tres Fichas, es necesario tener instalado
 
 A jugar
 -------
- - Navega desde tu consola hasta el directorio donde has guardado el juego `cd ~/Downloads/morris-tres-fichas`
- - Abre el intérprete de Lisp (sbcl) `sbcl --load gui.lisp`
+ - Navega desde tu consola hasta el directorio donde has guardado el juego
+   ```bash
+      cd ~/Downloads/morris-tres-fichas
+   ```
+ - Abre el intérprete de Lisp (sbcl)
+   ```bash
+      sbcl --load gui.lisp
+   ```
  - Disfrútalo
 
 Errores
